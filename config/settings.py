@@ -131,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 静的ファイルのディレクトリの場所
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # 本番環境用
+
+AUTH_USER_MODEL = 'account.User'
