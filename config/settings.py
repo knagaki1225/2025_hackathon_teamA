@@ -130,3 +130,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 静的ファイルのディレクトリの場所
+
+AUTH_USER_MODEL = 'account.User'
