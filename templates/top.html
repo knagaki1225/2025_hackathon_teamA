@@ -4,12 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        header{
+            height: 115px;
+            background: #5CC0EF;
+            color: white;
+            display: block;
+            position: sticky;
+            width: 100%;
+            padding: 0 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        header h1 {
+            margin: 20px 40px;
+            font-size: 50px; 
+        }
+        .header_list{
+            display: flex;
+        }
+        .header_list a{
+            text-decoration: none;
+            color: white;
+        }
+        .logout{
+            background: #1C75BC;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
+        }
+        .global-nav {
+            display: flex;
+            list-style: none;
+            margin-top: 10px;
+            font-size: 32px;
+            padding: 0px;
+        }
+        
+        .global-nav li {
+            margin: 25px;
+        }
+        
+        .btn {
+            margin: 40px;
+            font-size: 20px
+        }
+    </style>
 </head>
 <header>
-    <h1>Logo</h1>
-    <div>
-        <a href="#">Review list</a>
-        <a href="#">Mypage</a>
+    <div class="header_list">
+        <h1>Logo</h1>
+        <nav>
+            <ul class="global-nav">
+                <li><a href=""><img src="../img/Chats.png" class="icon">Review list</a></li>
+                <li><a href=""><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="btn">
+        <button class="logout">logout</button>
     </div>
 </header>
 <body>
