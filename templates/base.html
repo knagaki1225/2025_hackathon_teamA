@@ -1,0 +1,19 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %} | Logo</title>
+</head>
+<body>
+  {% include 'top.html' %}
+
+
+  <div>
+    {% block content %}{% endblock %}
+  </div>
+
+  {% include 'foter.html' %}
+
+</body>
+</html>
