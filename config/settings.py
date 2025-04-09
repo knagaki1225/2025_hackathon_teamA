@@ -1,5 +1,9 @@
 import os,dj_database_url
 from decouple import config
+
+from dotenv import load_dotenv
+load_dotenv()
+
 """
 Django settings for config project.
 
@@ -80,7 +84,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # dj-database-urlを使ってDATABASES設定を簡略化、.envからDB_URLを取得
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DB_URL'))
+    'default': dj_database_url.config(
+        env='DB_URL',
+        conn_max_age=600,
+        ssl_require=False
+    )
 }
 
 
