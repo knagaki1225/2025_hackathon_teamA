@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    department_id = models.ForeignKey("review.Department", on_delete=models.CASCADE)
+    department_id = models.ForeignKey("review.Department", on_delete=models.CASCADE, default=1)
     grade = models.IntegerField(default=1)
     icon_url = models.TextField(default='default.jpg')
     language = models.CharField(max_length=20, null=True, blank=True)
