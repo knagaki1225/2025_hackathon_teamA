@@ -7,7 +7,7 @@
     <title>Login</title>
     <style>
         body{
-            
+
         }
         .all{
             display: flex;
@@ -104,19 +104,27 @@
 
             <div class="login_item">
                 <label>login</label>
-                <input type="text" class="email" name="email" size="32" placeholder="Eメールアドレスを入力" required>
+                <form action="{% {% url 'login %' %}}" method="post">
+                    {% cslf_token%}
+                    <input type="text" class="email" name="User_name" size="32" placeholder="Eメールアドレスを入力" required>
+                </form>
             </div>
 
             <div class="password_item">
                 <label>password</label>
-                <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
+                <form action="{% {% url 'login %' %}}" method="post">
+                    {% cslf_token%}
+                    <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
+                </form>
             </div>
 
             <div class="ForgotPW">
                 <a href="changePW.html">Forgot password?</a>
             </div>
-
-            <button type="submit">Sign in</button>
+            <form action="{% {% url 'login %' %}}" method="post">
+                {% cslf_token%}
+                <input type="submit" >
+            </form>
 
             <div class="sign_up_item">
                 <p>アカウントを持っていない場合は、こちらから作成出来ます。</p>
