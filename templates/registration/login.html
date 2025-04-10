@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <title>Login</title>
     <style>
-        body{
-
-        }
         .all{
             display: flex;
         }
@@ -25,7 +22,7 @@
         .ForgotPW{
             text-align: right;
         }
-        button{
+        .button{
             font-size: 20px;
             padding: 10px 150px;
             border-radius: 20px;
@@ -102,22 +99,22 @@
         </div>
         <div class="login_text">
             <form action="{% url 'login' %}" method="post">
-            {% csrf_token%}
+                {% csrf_token %}
 
-            <div class="login_item">
-                <label>login</label>
-                <input type="text" class="email" name="username" size="32" placeholder="Eメールアドレスを入力" required>
-            </div>
+                <div class="login_item">
+                    <label>login</label>
+                    <input type="text" class="email" name="username" size="32" placeholder="Eメールアドレスを入力" required>
+                </div>
 
-            <div class="password_item">
-                <label>password</label>
-                <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
-            </div>
+                <div class="password_item">
+                    <label>password</label>
+                    <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
+                </div>
 
-            <div class="ForgotPW">
-                <a href="changePW.html">Forgot password?</a>
-            </div>
-                <input type="submit" >
+                <div class="ForgotPW">
+                    <a href="changePW.html">Forgot password?</a>
+                </div>
+                    <input class="button" type="submit" value="Sign in">
             </form>
 
             <div class="sign_up_item">
