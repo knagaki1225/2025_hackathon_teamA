@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- リセットcss -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <title>Account List</title>
+    <style>
+        .all{
+            display: flex;
+        }
+        .widget--sticky {
+            position: sticky;
+            top: 20px;
+        }
+        /* sideber 装飾 */
+
+        .sideber{
+            padding-top: 5px;
+            padding-left: 5px;
+            width: 252px;
+            height: 100vh;
+        }
+
+        .sideber ul li{
+            list-style: none;
+            margin-top: 30px;
+            margin-left: -15px;
+        }
+        .sideber ul li a{
+            display: flex;
+            position: relative;
+            text-decoration: none;
+            color: white;
+        }
+        .sideber ul li a img{
+            margin-right: 25px;
+        }
+        .sideber ul li a .user_img{
+            margin-left: 3px;
+            margin-right: 30px;
+        }
+
+        aside{
+            background-color: #5CC0EF;
+            height: 100%;
+        }
+
+        /* 文字の色、大きさ調整 */
+        h1{
+            font-size: 50px;
+            margin: 0px 40px;
+            color: white;
+        }
+        p{
+            font-size: 14px;
+            margin-top: 20px;
+            margin-left: 10px;
+            color: white;
+        }
+        .userlist_title p{
+            color: black;
+            font-size: 32px;
+            margin-left: 50px;
+        }
+        .userlist_title{
+            box-shadow: 4px 4px 4px gray;
+            height: 82px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <aside class="sideber">
+            <div class="widget--sticky">
+                <section>
+                    <h1>Logo</h1>
+                    <p>機能一覧</p>
+                    <ul>
+                        <li><a href=""><img src="../../img/home.png" alt="home">マイページ</a></li>
+                        <li><a href="#"><img src="../../img/user.png" alt="user" class="user_img">ユーザーリスト</a></li>
+                        <li><a href=""><img src="../../img/Chats.png" alt="revie">レビュー閲覧</a></li>
+                    </ul>
+                </section>
+            </div>
+        </aside>
+        <div class="userlist_title">
+            <p>User List</p>
+        </div>
+    </div>
+</body>
+</html>
