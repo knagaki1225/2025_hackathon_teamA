@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}サブカテゴリ詳細{% endblock %}
+
+{% block content %}
+  <h1>{{ subcategory.name }}</h1>
+  <p>{{ subcategory.description }}</p>
+  <a href="{% url 'home' %}">ホームへ戻る</a>
+{% endblock %}

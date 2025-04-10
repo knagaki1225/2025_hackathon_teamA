@@ -16,7 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from account.views import HomeView, SubcategoryDetailView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home', HomeView.as_view(), name='home'),
+   path('subcategory/<str:subcategory_name>/', SubcategoryDetailView.as_view(), name='subcategory_detail'),
+
+
+
+
+
 ]
