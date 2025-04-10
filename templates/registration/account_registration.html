@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-    <title>Login</title>
+    <title>Account registration</title>
     <style>
-        body{
-            
-        }
         .all{
             display: flex;
         }
@@ -22,9 +19,7 @@
         input{
             background-color: #5CC0EF;
         }
-        .ForgotPW{
-            text-align: right;
-        }
+
         button{
             font-size: 20px;
             padding: 10px 150px;
@@ -32,7 +27,7 @@
             background-color: white;
             color: #5CC0EF;
             border: none;
-            margin-top: 100px;
+            margin-top: 50px;
         }
         label{
             color: white;
@@ -46,32 +41,26 @@
         .sign_up_item a{
             font-size: 11px;
         }
-        .ForgotPW{
-            font-size: 14px;
-        }
-        .login_img{
+        .Account_registration_img{
             background-color: white;
         }
         {% comment %} 位置調整 {% endcomment %}
-        .login_item{
-            margin-top: 50px;
+        .Account_registration_item{
+            margin-top: 10px;
         }
-        .password_item{
+        .password_item,.Confirm_Password_item,.User_name_item{
             margin-top: 50px;
-        }
-        .ForgotPW{
-            margin-top: 20px;
         }
         .sign_up_item{
             margin-top: 100px;
         }
-        .login_text{
+        .Account_registration_text{
             margin: 0 auto;
             padding: 40px;
             background-color: #5CC0EF;
         }
         input{
-            padding: 20px;
+            padding: 10px;
         }
         {% comment %} 色変更 {% endcomment %}
         input::placeholder{
@@ -83,12 +72,12 @@
             color: #1C75BC;
         }
         {% comment %} 画像 {% endcomment %}
-        .login_img{
+        .Account_registration_img{
             white: 900px;
             height: 700px;
             margin: 0 auto;
         }
-        .login_img img{
+        .Account_registration_img img{
             white: 100%;
             height: 100%;
             object-fit: contain;
@@ -97,13 +86,13 @@
 </head>
 <body>
     <div class="all">
-        <div class="login_img">
-            <img src="../../img/login_img.png" alt="" class="icon">
+        <div class="Account_registration_img">
+            <img src="../../img/account_img.png" alt="" class="icon">
         </div>
-        <div class="login_text">
+        <div class="Account_registration_text">
 
-            <div class="login_item">
-                <label>login</label>
+            <div class="Account_registration_item">
+                <label>Sign up</label>
                 <input type="text" class="email" name="email" size="32" placeholder="Eメールアドレスを入力" required>
             </div>
 
@@ -111,17 +100,16 @@
                 <label>password</label>
                 <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
             </div>
-
-            <div class="ForgotPW">
-                <a href="changePW.html">Forgot password?</a>
+            <div class="Confirm_Password_item">
+                <label>Confirm Password</label>
+                <input type="password" class="Confirm_Password" name="Confirm_Password" size="32" placeholder="もう一度パスワードを入力" required>
+            </div>
+            <div class="User_name_item">
+                <label>User name</label>
+                <input type="text" class="User_name" name="User_name" size="32" placeholder="ユーザー名" required>
             </div>
 
-            <button type="submit">Sign in</button>
-
-            <div class="sign_up_item">
-                <p>アカウントを持っていない場合は、こちらから作成出来ます。</p>
-                <a href="account_registration.html">Sign up</a>
-            </div>
+            <button type="submit">Sign up</button>
         </div>
     </div>
 </body>
