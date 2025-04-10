@@ -63,7 +63,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,3 +141,5 @@ STATICFILES_DIRS = [BASE_DIR / 'static']    # 静的ファイルのディレク�
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # 本番環境用
 
 AUTH_USER_MODEL = 'account.User'
+
+LOGIN_REDIRECT_URL = '/review/'
