@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     department_id = models.ForeignKey("review.Department", on_delete=models.CASCADE, default=2)
     grade = models.IntegerField(default=1)
-    icon_url = models.TextField(default='default.jpg')
+    icon_url = models.ImageField(upload_to=icon_upload_function, default='profile_icons/default.jpg')
     language = models.CharField(max_length=20, null=True, blank=True)
     career = models.CharField(max_length=20, null=True, blank=True)
     my_ditail = models.TextField(null=True, blank=True)
@@ -13,4 +13,3 @@ class User(AbstractUser):
     create_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     del_flg = models.BooleanField(default=False)
-
