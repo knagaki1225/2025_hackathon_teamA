@@ -5,4 +5,5 @@ app_name = 'account'
 
 urlpatterns = [
     path('signup/', views.SignUpView.as_view(), name='signup'), # サインアップページ
+    path('upload-icon/', views.upload_icon, name='upload_icon'),  # 画像アップロードページ
 ]
