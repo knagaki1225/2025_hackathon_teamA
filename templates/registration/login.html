@@ -101,28 +101,22 @@
             <img src="../../img/login_img.png" alt="" class="icon">
         </div>
         <div class="login_text">
+            <form action="{% url 'login' %}" method="post">
+            {% csrf_token%}
 
             <div class="login_item">
                 <label>login</label>
-                <form action="{% {% url 'login %' %}}" method="post">
-                    {% cslf_token%}
-                    <input type="text" class="email" name="User_name" size="32" placeholder="Eメールアドレスを入力" required>
-                </form>
+                <input type="text" class="email" name="username" size="32" placeholder="Eメールアドレスを入力" required>
             </div>
 
             <div class="password_item">
                 <label>password</label>
-                <form action="{% {% url 'login %' %}}" method="post">
-                    {% cslf_token%}
-                    <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
-                </form>
+                <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
             </div>
 
             <div class="ForgotPW">
                 <a href="changePW.html">Forgot password?</a>
             </div>
-            <form action="{% {% url 'login %' %}}" method="post">
-                {% cslf_token%}
                 <input type="submit" >
             </form>
 
