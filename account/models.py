@@ -1,6 +1,13 @@
 # account/models.py
+import os,uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+#アップロードされたファイルをUUIDを使用して一意の名前に変換する関数
+def icon_upload_function(instance, filename):
+    ext = os.path.splitext(filename)[1] #ファイル名から拡張子を取り出す
+    filename = f"{uuid.uuid4()}.{ext}" #UUID＋拡張子に変更
+    return os.path.join('profile_icons', filename) #変更後のファイル名を返す
 
 class User(AbstractUser):
     department_id = models.ForeignKey("review.Department", on_delete=models.CASCADE, default=2)
