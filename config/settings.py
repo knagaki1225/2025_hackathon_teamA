@@ -1,4 +1,9 @@
+import os,dj_database_url
 from decouple import config
+
+from dotenv import load_dotenv
+load_dotenv()
+
 """
 Django settings for config project.
 
@@ -26,7 +31,7 @@ SECRET_KEY = 'django-insecure-y(dxl-m1sv5=*l!_e51@b!x5*p(roho)&0_af=(cp*(*fzto2k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # すべてのホストを許可する（本番環境では適切なホスト名に変更してください）
 
 
 # Application definition
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +63,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,15 +82,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# dj-database-urlを使ってDATABASES設定を簡略化、.envからDB_URLを取得
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT', default='5432'),
-    }
+    'default': dj_database_url.config(
+        env='DB_URL',
+        conn_max_age=600,
+        ssl_require=False
+    )
 }
 
 
@@ -124,9 +128,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# 静的ファイルを収集する場所
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']    # 静的ファイルのディレクトリの場所
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # 本番環境用
+
+AUTH_USER_MODEL = 'account.User'
+
+LOGIN_REDIRECT_URL = '/review/'

@@ -1,9 +1,76 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ subject.name }}</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .box {
+      background: #4FC3F7;
+      color: black;
+      padding: 10px 20px;
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+    }
+    .stars {
+      color: red;
+      font-size: 20px;
+    }
+    .overview {
+      margin-top: 20px;
+    }
+    .overview h3 {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .overview ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
 
-{% block title %}サブカテゴリ詳細{% endblock %}
+  <div class="title">{{ subject.name }}</div>
 
-{% block content %}
-  <h1>{{ subcategory.name }}</h1>
-  <p>{{ subcategory.description }}</p>
-  <a href="{% url 'home' %}">ホームへ戻る</a>
-{% endblock %}
+  <div class="box">
+    <div>総合評価</div>
+    <div>
+      <span class="stars">
+        {% for i in "12345"|slice:":" %}
+          {% if forloop.counter <= subject.rating|floatformat:0 %}
+            ★
+          {% else %}
+            ☆
+          {% endif %}
+        {% endfor %}
+      </span>
+      {{ subject.rating }}
+    </div>
+  </div>
+
+  <div class="box">
+    <div>担当教員</div>
+    <div>{{ subject.teacher }}</div>
+  </div>
+
+  <div class="overview">
+    <h3>授業概要</h3>
+    <ul>
+      {% for line in subject.overview.splitlines %}
+        <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</body>
+</html>
