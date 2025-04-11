@@ -3,5 +3,10 @@
 {% block title %}ホーム {% endblock %}
 
 {% block content %}
-
+{% for review in reviews|slice:":3" %}
+  <p>-----------------------</p>
+  <p>{{ review.class_id }}</p>
+  <p>{{ review.review_num }}</p>
+  <a href="{% url 'review:detailReview' review.id %}">詳細</a>
+{% endfor %}
 {% endblock %}
