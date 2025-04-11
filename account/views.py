@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from .forms import ImageUploadForm
 from django.contrib.auth import get_user_model
+from .models import User
 
 User = get_user_model()
 
@@ -27,3 +28,11 @@ def upload_icon(request):
         form = ImageUploadForm()
 
     return render(request, 'accounts/upload_icon.html', {'form': form})
+
+class AllView(generic.ListView):
+    model = User
+    template_name = 'accounts/all.html'
+
+class AccountsDetailView(generic.DetailView):
+    model = User
+    template_name = 'accounts/detail.html'

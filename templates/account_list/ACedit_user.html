@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アカウント編集（利用者）</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 70px;
+          }
+
+          
+          label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 28px;
+          }
+
+          {% comment %} ユーザー名 {% endcomment %}
+          .username {
+            border: none;
+            border-bottom: solid 1.5px black;
+            width: 1085px;
+            padding: 20px;
+            margin-bottom: 15px;
+          }
+          {% comment %} 学科 {% endcomment %}
+          .department_u {
+            width: 470px;
+            height: 60px;
+          }
+
+          .department {
+            margin: 40px 80px 40px 30px;
+          }
+
+          {% comment %} 学年 {% endcomment %}
+          .grade_u{
+            width: 195px;
+            height: 60px;
+          }
+
+          .grade {
+            margin: 40px 120px;
+          }
+
+          select{
+            font-size: 22px;
+          }
+
+          .study {
+            display: flex;
+            margin: 0 auto;
+          }
+          
+          {% comment %} 得意言語 {% endcomment %}
+          .skile {
+            width: 1085px;
+            padding: 8px;
+            margin-bottom: 15px;
+          }
+
+          {% comment %} 進路 {% endcomment %}
+          .career {
+            width: 1085px;
+            padding: 8px;
+            margin-bottom: 15px;
+          }
+
+          {% comment %} 備考 {% endcomment %}
+          textarea {
+            resize: vertical;
+            height: 179px;
+            width: 1085px;
+            padding: 8px;
+            margin-bottom: 15px;
+          }
+          
+          .keep {
+            margin: 40px 500px;
+          }
+          .button{
+            background-color: #4fc3f7;
+            color: white;
+            border: none;
+            padding: 8px 45px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+          }
+
+          .imag{
+            background-color: #4fc3f7;
+            color: white;
+            border: none;
+            padding: 5px 40px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+          }
+    </style>
+</head>
+
+<body>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="u_name">
+        <label>ユーザーアイコン</label>
+        <img src="" alt="#" class="icon">  
+        <input type="file" name="imag" accept="image/*">             
+    </div>
+
+    <div class="u_name">
+        <label>ユーザー名</label>
+        <input type="text" class="username" placeholder="ユーザー名"> 
+    </div>
+    
+    <div class="study">
+        <div class="department">
+            <label>学科</label>
+            <select class="department_u">
+                <option>情報システム科</option>
+                <option>総合システム工学科</option>
+                <option>高度情報システム工学科</option>
+            </select>
+        </div>
+        
+        <div class="grade">
+            <label>学年</label>
+            <select class="grade_u">   
+                <option>1年</option>
+                <option>2年</option>
+                <option>3年</option>
+                <option>4年</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="textbox">
+      <label>得意言語</label>
+      <input type="text" class= "skile" placeholder="Java, HTML/CSS等">
+
+      <label>進路</label>
+      <input type="text" class="career">
+
+      <label>備考</label>
+      <textarea class="note" rows="4"></textarea>
+    </div>
+  
+    <div class="keep">
+      <input type="submit"  value"保存" class="button">
+    </div>
+  </form>
+
+</body>   
+</html>
