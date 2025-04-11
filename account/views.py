@@ -22,8 +22,8 @@ def upload_icon(request):
             user = request.user
             user.icon_url = form.cleaned_data['icon_url']
             user.save()  # ユーザーのアイコンを保存
-            return redirect('profile')  # アップロード後にプロフィールページにリダイレクト
+            return redirect('profile')  # アップロード後にリダイレクト(遷移先は適宜変更)
     else:
         form = ImageUploadForm()
 
-    return render(request, 'account/upload_icon.html', {'form': form})
+    return render(request, 'accounts/upload_icon.html', {'form': form})
