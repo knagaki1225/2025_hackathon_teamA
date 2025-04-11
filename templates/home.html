@@ -3,5 +3,7 @@
 {% block title %}ホーム {% endblock %}
 
 {% block content %}
-
+{% for review in object_list|slice:":3" %}
+  <p>{{ review.review_num }}</p>
+{% endfor %}
 {% endblock %}

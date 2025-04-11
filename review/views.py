@@ -7,7 +7,7 @@ def search():
 
 class IndexView(generic.ListView):
     model = Review     
-    template_name = 'top.html'    # 使用するテンプレート名を指定
+    template_name = 'home.html'    # 使用するテンプレート名を指定
 
 class ReviewDetailView(generic.DetailView):
     model = Review
