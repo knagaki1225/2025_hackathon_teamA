@@ -27,4 +27,3 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), #ユーザ認証用モデルの呼び出し
     path('accounts/', include('account.urls')),
 ]
- 
