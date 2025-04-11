@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <title>Login</title>
+    <style>
+        .all{
+            display: flex;
+        }
+        label{
+            display: block;
+        }
+        input{
+            border: none;
+            border-bottom: 2px solid white;
+        }
+        input{
+            background-color: #5CC0EF;
+        }
+        .ForgotPW{
+            text-align: right;
+        }
+        .button{
+            font-size: 20px;
+            padding: 10px 150px;
+            border-radius: 20px;
+            background-color: white;
+            color: #5CC0EF;
+            border: none;
+            margin-top: 100px;
+        }
+        label{
+            color: white;
+        }
+        .sign_up_item{
+            display: flex;
+        }
+        .sign_up_item p{
+            font-size: 11px;
+        }
+        .sign_up_item a{
+            font-size: 11px;
+        }
+        .ForgotPW{
+            font-size: 14px;
+        }
+        .login_img{
+            background-color: white;
+        }
+        {% comment %} 位置調整 {% endcomment %}
+        .login_item{
+            margin-top: 50px;
+        }
+        .password_item{
+            margin-top: 50px;
+        }
+        .ForgotPW{
+            margin-top: 20px;
+        }
+        .sign_up_item{
+            margin-top: 100px;
+        }
+        .login_text{
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #5CC0EF;
+        }
+        input{
+            padding: 20px;
+        }
+        {% comment %} 色変更 {% endcomment %}
+        input::placeholder{
+            color: white;
+        }
+        a{
+            position: relative;
+            text-decoration: none;
+            color: #1C75BC;
+        }
+        {% comment %} 画像 {% endcomment %}
+        .login_img{
+            white: 900px;
+            height: 700px;
+            margin: 0 auto;
+        }
+        .login_img img{
+            white: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="login_img">
+            <img src="../../img/login_img.png" alt="" class="icon">
+        </div>
+        <div class="login_text">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+
+                <div class="login_item">
+                    <label>login</label>
+                    <input type="text" class="email" name="username" size="32" placeholder="Eメールアドレスを入力" required>
+                </div>
+
+                <div class="password_item">
+                    <label>password</label>
+                    <input type="password" class="password" name="password" size="32" placeholder="パスワードを入力" required>
+                </div>
+
+                <div class="ForgotPW">
+                    <a href="changePW.html">Forgot password?</a>
+                </div>
+                    <input class="button" type="submit" value="Sign in">
+            </form>
+
+            <div class="sign_up_item">
+                <p>アカウントを持っていない場合は、こちらから作成出来ます。</p>
+                <a href="account_registration.html">Sign up</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

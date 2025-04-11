@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- リセットcss -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <title>Document</title>
+    <style>
+        .all{
+            display: flex;
+            padding: 30px;
+        }
+        .info{
+            display: flex;
+        }
+        .icon_items{
+            color: white;
+            margin-top: 30px;
+            background-color: #5CC0EF;
+            width: 362px;
+            height: 860px;
+            border-radius: 20px;
+            padding: 50px;
+        }
+        .background p{
+            background-color: #F9A638;
+            font-size: 32px;
+        }
+        .icon_items hr{
+            margin-top: 50px;
+        }
+        p{
+            font-size: 24px;
+        }
+        .changePW a{
+            font-size: 15px;
+            text-decoration: none;
+            color: white;
+            margin-top: 3px;
+        }
+        .changePW{
+            margin-top: 100px;
+            display: flex;
+        }
+        .user_info table{
+            width: 100%;
+            margin-top: 50px;
+        }
+        .user_info table th{
+            text-align: left;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        .user_info table td{
+            text-align: center;
+            font-size: 32px;
+        }
+        .user_info table th,td{
+            padding: 20px 10px;
+        }
+        .language{
+            padding-left: 40px;
+        }
+        .basic_info{
+            width: 740px;
+            height: 300px;
+            margin: 0px 50px 50px 50px;
+            border: 2px solid black;
+            border-radius: 30px;
+            padding: 30px;
+        }
+        h2 {
+            font-weight: normal;
+        }
+        .basic_info h1{
+            font-size: 40px;
+            font-weight: normal;
+        }
+        .basic_info td h2{
+            font-size: 32px;
+        }
+        .basic_info td p{
+            font-size: 24px;
+        }
+
+        .mail_items{
+            width: 740px;
+            height: 250px;
+            margin: 0px 50px 50px 50px;
+            border: 2px solid black;
+            border-radius: 30px;
+            padding: 30px;
+        }
+        .mail_items table{
+            width: 100%;
+        }
+        .note_1{
+            width: 380px;
+            height: 240px;
+            margin: 0px 50px 50px 50px;
+            border: 2px solid black;
+            border-radius: 30px;
+            padding: 30px;
+        }
+        .note_1 h2{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="icon_items">
+            <div class="icon">
+                <img src="../../img/user_icon_img.png" alt="">
+            </div>
+            <hr color="white">
+            <div class="user_info">
+                <table>
+                    <tr>
+                        <th>権限</th>
+                        <td class="background"><p>利用者</p></td>
+                    </tr>
+                    <tr>
+                        <th>レビュー数</th>
+                        <td>52件</td>
+                    </tr>
+                    <tr>
+                        <th>いいね数</th>
+                        <td>100</td>
+                    </tr>
+                </table>
+                <div class="changePW">
+                    <img src="../../img/GearSix.png" alt="">
+                    <a href="">パスワード変更</a>
+                </div>
+            </div>
+        </div>
+        <div class="info_items">
+            <div class="basic_info">
+                <h1>金野 宇晃</h1>
+                <hr>
+                <table>
+                    <tr>
+                        <th><img src="../../img/subject_img.png" alt=""></th>
+                        <td><h2>学科</h2></td>
+                        <td><p>情報システム科</p></td>
+
+                        <th class="language"><img src="language_img.png" alt=""></th>
+                        <td><h2>得意言語</h2></td>
+                        <td><p>Java</p></td>
+                        
+                    </tr>
+                    <tr>
+                        <th><img src="../../img/grade_img.png" alt=""></th>
+                        <td><h2>学年</h2></td>
+                        <td><p>8年</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mail_items">
+                <table>
+                    <tr>
+                        <th><img src="../../img/mail_img.png" alt=""></th>
+                        <td><h2>メールアドレス</h2></td>
+                        <td><p>test_user@outlook.com</p></td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../img/course_img.png" alt=""></th>
+                        <td><h2>進路（業界、業種）</h2></td>
+                        <td><p>富士ソフト<br>インフラエンジニア</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="notes">
+                <div class="note_1">
+                    <h2>備考</h2>
+                    <p>
+                        github <br>
+                        https://github.com/sample-user/demo-repo
+                    </p>
+                </div>
+                <div class="note_2"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
