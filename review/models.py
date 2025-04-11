@@ -23,7 +23,7 @@ class Review(models.Model):
 
 class Good(models.Model):
     user_id = models.ForeignKey("account.User", on_delete=models.CASCADE)
-    review_id = models.ForeignKey("review.Review", on_delete=models.CASCADE)
+    review_id = models.ForeignKey("review.Review", on_delete=models.CASCADE, related_name='good')
     create_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     del_flg = models.BooleanField(default=False)

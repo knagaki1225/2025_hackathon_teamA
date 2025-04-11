@@ -7,3 +7,4 @@ __pycache__/
 db-volumes/
 db.sqlite3
 staticfiles/
+media/

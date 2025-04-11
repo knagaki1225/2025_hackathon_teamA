@@ -4,6 +4,7 @@
 
 {% block content %}
 
+
 <style>
   .sidebar {
     width: 250px;
@@ -69,4 +70,10 @@ function toggleSubcategories(id) {
 }
 </script>
 
+{% for review in reviews|slice:":3" %}
+  <p>-----------------------</p>
+  <p>{{ review.class_id }}</p>
+  <p>{{ review.review_num }}</p>
+  <a href="{% url 'review:detailReview' review.id %}">詳細</a>
+{% endfor %}
 {% endblock %}
