@@ -7,7 +7,8 @@ class searchForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class':'words',
             'placeholder':'words',
-        })
+        }),
+        required=False
     )
 
     review_num = forms.ChoiceField(
@@ -26,11 +27,11 @@ class searchForm(forms.Form):
     result_date = forms.ChoiceField(
         label='投稿日',
         choices=[
-            ('1m_ago', '～１ヶ月'),
-            ('2m_ago', '～２か月'),
-            ('3m_ago', '～３ヶ月'),
-            ('5m_ago', '～５ヶ月'),
-            ('1y_ago', '～１年'),
+            ('30', '～１ヶ月'),
+            ('60', '～２か月'),
+            ('180', '～３ヶ月'),
+            ('300', '～５ヶ月'),
+            ('365', '～１年'),
         ],
         widget=forms.RadioSelect,
         required=False
