@@ -2,16 +2,28 @@ from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
 from .models import Review, Class
 from django.db.models import Count, Q, Avg
+from .forms import searchForm
 
-def search():
-    render
+def search(request):
+    result = None
+    forms = searchForm(request.GET)
+
+    if forms.is_valid():
+        words = forms.cleaned_data['words']
+        # Classのnameフィールドにwordsが含まれているClassを取得
+        class_ids = Class.objects.filter(class_name__icontains=words).values_list('id', flat=True)
+
+        # Reviewモデルでclass_idが上で取得したclass_idsに含まれるレビューを取得
+        result = Review.objects.filter(class_id__in=class_ids)
+    return render(request, 'review/result.html',{'results':result,'searchForm':forms})
 
 def review_list(request):
     reviews = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
     ).order_by('-good_count')
+    forms = searchForm(request.GET)
 
-    return render(request, 'home.html', {'reviews': reviews})
+    return render(request, 'home.html', {'reviews': reviews,'searchForm':forms})
 
 class ReviewDetailView(generic.DetailView):
     model = Review
