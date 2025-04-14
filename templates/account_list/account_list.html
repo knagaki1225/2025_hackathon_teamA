@@ -14,8 +14,7 @@
             position: sticky;
             top: 20px;
         }
-        /* sideber 装飾 */
-
+        /* sidebar 装飾 */
         .sideber{
             padding-top: 5px;
             padding-left: 5px;
@@ -69,6 +68,18 @@
             height: 82px;
             width: 100%;
         }
+
+        /* 三点リーダーアイコン */
+        .three-dots {
+            font-size: 30px;
+            cursor: pointer;
+            color: #4FC3F7;
+            padding: 10px;
+        }
+
+        .user-type-container label {
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -90,5 +101,52 @@
             <p>User List</p>
         </div>
     </div>
+
+    <div class="three-dots" onclick="openPopup()">&#8230;</div>
+
+    <div id="reviewPopup" style="display: none; position: fixed; top:50%; left: 50%; transform: translate(-50%,-50%);
+        background: #4FC3F7; border-radius: 10px; padding: 20px; width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 999;">
+        
+        <div style="margin-top: 10px;">
+            <label>学科の選択</label><br>
+            <select id="department" style="width: 100%; margin-top: 5px;">
+                <option value="情報システム科">情報システム科</option>
+                <option value="総合システム工学科">総合システム工学科</option>
+                <option value="高度情報工学科">高度情報工学科</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+
+        <div class="user-type-container" style="margin-top: 10px;">
+            <label>ユーザータイプ</label><br>
+            <label><input type="radio" name="userType" value="管理者"> 管理者</label>
+            <label><input type="radio" name="userType" value="利用者" checked> 利用者</label>
+        </div>
+
+    </div>
+
+    <div id="overlay" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 998;" onclick="closePopup()"></div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('reviewPopup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('reviewPopup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function submitReview() {
+            const department = document.getElementById('department').value;
+            const userType = document.querySelector('input[name="userType"]:checked')?.value;
+            const anonymous = document.getElementById('anonymity').checked;
+
+            alert(`送信内容:\n学科: ${department}\nユーザータイプ: ${userType}\n匿名: ${anonymous ? 'はい' : 'いいえ'}`);
+
+            closePopup();
+        }
+    </script>
 </body>
 </html>
