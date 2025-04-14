@@ -70,6 +70,11 @@ function toggleSubcategories(id) {
 }
 </script>
 
+<form class="" method="get" action="{% url 'review:search' %}">
+  {{ searchForm.as_p }}
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
 {% for review in reviews|slice:":3" %}
   <p>-----------------------</p>
   <p>{{ review.class_id }}</p>
