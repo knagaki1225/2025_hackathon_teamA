@@ -44,6 +44,96 @@
     text-decoration: underline;  /* マウスオーバー時に下線を追加 */
   }
 
+  .search-container {
+    background-color: #0077c8;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 650px;
+    margin: 0 60px 60px auto
+  }
+
+  .search-container input[type="text"] {
+    width: 90%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .filter-group {
+    margin-bottom: 20px;
+  }
+
+  .filter-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .filter-group .option {
+    display: inline-block;
+    font-size: 12px;
+    margin: 5px;
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+
+  .filter-group input[type="radio"],
+  .filter-group input[type="checkbox"] {
+    display: none;
+  }
+
+  .filter-group input:checked + .option {
+    background-color: #5CC0EF;
+    color: white;
+  }
+
+  .search-button {
+    background-color: orange;
+    color: white;
+    padding: 7px 55px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .button {
+    text-align: center;
+  }
+
+  .review-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-left: 8px solid #00aaff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .review-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  {% comment %} .review-rating {
+    color: red;
+    font-weight: bold;
+  } {% endcomment %}
+
 </style>
 
 <div class="sidebar">
@@ -69,6 +159,75 @@ function toggleSubcategories(id) {
   subcatDiv.style.display = (subcatDiv.style.display === "block") ? "none" : "block";
 }
 </script>
+
+  <form method="get" class="search-container">
+    <!-- キーワード検索 -->
+    <input type="text" name="keyword" placeholder="Search" value="{{ form.keyword.value|default_if_none:'' }}">
+
+    <!-- 総合評価 -->
+    <div class="filter-group">
+      <label>総合評価</label>
+      {% for value, label in form.rating.field.choices %}
+        <label>
+          <input type="radio" name="rating" value="{{ value }}" {% if form.rating.value == value %}checked{% endif %}>
+          <span class="option">{{ label }}</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    <!-- 投稿日 -->
+    <div class="filter-group">
+      <label>投稿日</label>
+      {% for value, label in form.date_range.field.choices %}
+        <label>
+          <input type="radio" name="date_range" value="{{ value }}" {% if form.date_range.value == value %}checked{% endif %}>
+          <span class="option">{{ label }}</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    <!-- その他 -->
+    <div class="filter-group">
+      <label>その他</label>
+      <label>
+        <input type="checkbox" name="many_likes" {% if form.many_likes.value %}checked{% endif %}>
+        <span class="option">いいね数が多い</span>
+      </label>
+    </div>
+
+    <div class="button">
+      <input type="submit" class="search-button" value="検索">
+    </div>
+  </form>
+
+   <!-- 検索結果（レビューカード） -->
+   <h2>いいねが多いレビュー</h2>
+   {% for review in reviews %}
+     <div class="review-card">
+       <div class="review-header">
+         {% comment %} <img src="{% static 'default_user_icon.png' %}" alt="User"> {% endcomment %}
+         <div>
+           <div>{{ review.user_name }} | {{ review.posted_at|date:"Y年m月d日" }}</div>
+           <span style="color: red; font-size: 20px;">
+            {% for i in "12345" %}
+              {% if forloop.counter <= review.rating|floatformat:0 %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+            <div class="review-rating">{{ review.rating }} 5</div>
+          </span>
+         </div>
+       </div>
+       <div>
+         {{ review.course_name }}
+         <p>{{ review.comment|linebreaksbr }}</p>
+       </div>
+     </div>
+   {% empty %}
+     <p>レビューが見つかりませんでした。</p>
+   {% endfor %}
 
 {% for review in reviews|slice:":3" %}
   <p>-----------------------</p>
