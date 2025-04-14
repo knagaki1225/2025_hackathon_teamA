@@ -43,6 +43,7 @@ class Class(models.Model):
     category_id = models.ForeignKey("review.Category", on_delete=models.CASCADE)
     difficulty = models.IntegerField(default=1)
     comment = models.TextField(null=True, blank=True)
+    priority_idx = models.IntegerField(default=100)
     create_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     del_flg = models.BooleanField(default=False)
@@ -50,10 +51,9 @@ class Class(models.Model):
     def __str__(self):
         return self.class_name
 
-
-
 class Category(models.Model):
     category_name = models.CharField(max_length=20)
+    priority_idx = models.IntegerField(default=100)
     create_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     del_flg = models.BooleanField(default=False)
