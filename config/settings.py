@@ -143,6 +143,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 AUTH_USER_MODEL = 'account.User'
 
 LOGIN_REDIRECT_URL = '/review/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 #画像保存用のディレクトリ
 MEDIA_URL = '/media/'

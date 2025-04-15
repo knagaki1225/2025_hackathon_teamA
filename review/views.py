@@ -5,6 +5,8 @@ from django.db.models import Count, Q, Avg
 from .forms import searchForm
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
 
 def search(request):
     result = None
@@ -38,6 +40,7 @@ def search(request):
 
     return render(request, 'review/result.html',{'results':result,'searchForm':forms})
 
+@login_required
 def review_list(request):
     reviews = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
