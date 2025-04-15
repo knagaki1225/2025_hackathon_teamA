@@ -53,6 +53,8 @@ class HomeView(TemplateView):
                 "subcategories": [
                     {"name": "Java基礎"},
                     {"name": "Java応用"},
+                    {"name": "Java応用(Spring Boot①)"},
+                    {"name": "Java応用(Spring Boot②)"},
                 ]
             },
             {
@@ -60,9 +62,12 @@ class HomeView(TemplateView):
                 "name": "Python",
                 "subcategories": [
                     {"name": "Python基礎"},
-                    {"name": "Python応用"},
+                    {"name": "Python応用(Django①)"},
+                    {"name": "Python応用(Django②)"},
+                    {"name": "Python応用(tkinter)"},
+                    {"name": "Python応用(教師あり学習)"},
                 ]
-            }
+            },
         ]
         context['categories'] = categories
         return context
@@ -78,15 +83,15 @@ class SubcategoryDetailView(View):
 class CustomPasswordResetView(auth_views.PasswordResetView):
     template_name = 'account/password_reset.html'
     email_template_name = 'account/password_reset_email.html'
-    subject_template_name = 'accounts/password_reset_subject.txt'
+    subject_template_name = 'account/password_reset_subject.txt'
     success_url = reverse_lazy('account:password_reset_done')
 
 class CustomPasswordResetDoneView(auth_views.PasswordResetDoneView):
-    template_name = 'accounts/password_reset_done.html'
+    template_name = 'account/password_reset_done.html'
 
 class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-    template_name = 'accounts/password_reset_confirm.html'
+    template_name = 'account/password_reset_confirm.html'
     success_url = reverse_lazy('account:password_reset_complete')
 
 class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
-    template_name = 'accounts/password_reset_complete.html'
+    template_name = 'account/password_reset_complete.html'

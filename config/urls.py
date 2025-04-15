@@ -26,6 +26,6 @@ urlpatterns = [
     path('subcategory/<str:subcategory_name>/', SubcategoryDetailView.as_view(), name='subcategory_detail'),
     path('review/', include('review.urls')),
     path('accounts/', include('django.contrib.auth.urls')), #ユーザ認証用モデルの呼び出し
-    path('accounts/', include('account.urls')),
-    path('',RedirectView.as_view(url='/review/')),
+    # path('accounts/', include('account.urls')),
+    path('account/', include('account.urls')),
 ]
