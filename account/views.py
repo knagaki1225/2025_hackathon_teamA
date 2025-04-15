@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -10,6 +10,7 @@ from .forms import ImageUploadForm
 from django.contrib.auth import get_user_model
 from .models import User
 from django.contrib.auth import views as auth_views
+from review.models import Review, Good
 
 
 User = get_user_model()
@@ -27,7 +28,7 @@ def upload_icon(request):
             user = request.user
             user.icon_url = form.cleaned_data['icon_url']
             user.save()  # ユーザーのアイコンを保存
-            return redirect('profile')  # アップロード後にリダイレクト(遷移先は適宜変更)
+            return redirect(reverse('account:accountsDetail', kwargs={'pk': request.user.pk}))  # アップロード後にリダイレクト(遷移先は適宜変更)
     else:
         form = ImageUploadForm()
 
@@ -37,9 +38,16 @@ class AllView(generic.ListView):
     model = User
     template_name = 'accounts/all.html'
 
+def AccountDetail(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    review = Review.objects.filter(user_id__in=[pk], del_flg=False).count()
+    good = Good.objects.filter(user_id__in=[pk], del_flg=False).count()
+
+    return render(request, 'account_list/account_mypage.html', {'user':user, 'review':review, 'good':good})
+
 class AccountsDetailView(generic.DetailView):
     model = User
-    template_name = 'accounts/detail.html'
+    template_name = 'account_list/account_mypage.html'
     
 class HomeView(TemplateView):
     template_name = 'home.html'
