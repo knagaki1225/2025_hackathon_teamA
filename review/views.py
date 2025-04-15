@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
-from .models import Review, Class
-from django.db.models import Count, Q, Avg
+from .models import Review, Class,Category
+from django.db.models import Count, Q, Avg, Prefetch
 from .forms import searchForm
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
 
 def search(request):
     result = None
@@ -45,9 +44,12 @@ def review_list(request):
     reviews = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
     ).order_by('-good_count')
+
     forms = searchForm(request.GET)
 
-    return render(request, 'home.html', {'reviews': reviews,'searchForm':forms})
+    categories = Category.objects.prefetch_related('classes')
+    
+    return render(request, 'home.html', {'reviews': reviews,'searchForm':forms,'categories': categories})
 
 class ReviewDetailView(generic.DetailView):
     model = Review
