@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from account.views import HomeView, SubcategoryDetailView
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
@@ -27,5 +28,4 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), #ユーザ認証用モデルの呼び出し
     # path('accounts/', include('account.urls')),
     path('account/', include('account.urls')),
-    
 ]
