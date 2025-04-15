@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- リセットcss -->
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <title>Account List</title>
     <style>
@@ -14,7 +13,6 @@
             position: sticky;
             top: 20px;
         }
-        /* sidebar 装飾 */
         .sideber{
             padding-top: 5px;
             padding-left: 5px;
@@ -69,7 +67,7 @@
             width: 100%;
         }
 
-        /* 三点リーダーアイコン */
+        /* 三点リーダー*/
         .three-dots {
             font-size: 30px;
             cursor: pointer;
@@ -122,10 +120,10 @@
             <label><input type="radio" name="userType" value="管理者"> 管理者</label>
             <label><input type="radio" name="userType" value="利用者" checked> 利用者</label>
         </div>
-
+        <button onclick="submitReview()" style="background: #FFA726; border: none; color: white; padding: 6px 12px; border-radius: 5px; cursor: pointer;">投稿する</button>
     </div>
-
     <div id="overlay" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 998;" onclick="closePopup()"></div>
+
 
     <script>
         function openPopup() {
