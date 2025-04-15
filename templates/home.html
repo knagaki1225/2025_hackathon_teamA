@@ -107,32 +107,6 @@
     text-align: center;
   }
 
-  .review-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-left: 8px solid #00aaff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-
-  .review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .review-header img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-
-  {% comment %} .review-rating {
-    color: red;
-    font-weight: bold;
-  } {% endcomment %}
 
 </style>
 
@@ -204,31 +178,48 @@ function toggleSubcategories(id) {
    <!-- 検索結果（レビューカード） -->
    <h2>いいねが多いレビュー</h2>
    {% for review in reviews %}
-     <div class="review-card">
-       <div class="review-header">
-         {% comment %} <img src="{% static 'default_user_icon.png' %}" alt="User"> {% endcomment %}
-         <div>
-           <div>{{ review.user_name }} | {{ review.posted_at|date:"Y年m月d日" }}</div>
-           <span style="color: red; font-size: 20px;">
-            {% for i in "12345" %}
-              {% if forloop.counter <= review.rating|floatformat:0 %}
-                ★
-              {% else %}
-                ☆
-              {% endif %}
-            {% endfor %}
-            <div class="review-rating">{{ review.rating }} 5</div>
+  <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+
+    <!-- ユーザー情報 -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center;">
+        <div style="width: 24px; height: 24px; background: black; border-radius: 50%; margin-right: 10px;"></div>
+        <div style="font-size: 14px;">
+          <strong>
+            {% if review.anonymity_flg %}
+              匿名
+            {% else %}
+              {{ review.user_id.username }}
+            {% endif %}
+          </strong>
+          <span style="color: #666; margin-left: 10px;">
+            {{ review.user_id.department }}　{{ review.user_id.grade }}年
           </span>
-         </div>
-       </div>
-       <div>
-         {{ review.course_name }}
-         <p>{{ review.comment|linebreaksbr }}</p>
-       </div>
-     </div>
-   {% empty %}
-     <p>レビューが見つかりませんでした。</p>
-   {% endfor %}
+        </div>
+      </div>
+      <div style="font-size: 20px;">…</div>
+    </div>
+
+    <!-- レヴュー評価 -->
+    <div style="margin-top: 10px; background: #4FC3F7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: 20px; width: fit-content;">
+      <div style="color: red;">
+        {% for i in "12345" %}
+          {% if forloop.counter <= review.review_num %}
+            ★
+          {% else %}
+            ☆
+          {% endif %} 
+        {% endfor %}
+      </div>
+      <div style="color: black;">{{ review.review_num }}</div>
+    </div>
+
+    <!-- レビューコメント -->
+    <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
+      {{ review.comment|linebreaksbr }}
+    </div>
+  </div>
+  {% endfor %}
 
 <form class="" method="get" action="{% url 'review:search' %}">
   {{ searchForm.as_p }}
