@@ -145,7 +145,11 @@ function toggleSubcategories(id) {
       {% for value, label in form.rating.field.choices %}
         <label>
           <input type="radio" name="rating" value="{{ value }}" {% if form.rating.value == value %}checked{% endif %}>
-          <span class="option">{{ label }}</span>
+          <span class="option">★ ~</span>
+          <span class="option">★★ ~</span>
+          <span class="option">★★★ ~</span>
+          <span class="option">★★★★ ~</span>
+          <span class="option">★★★★★</span>
         </label>
       {% endfor %}
     </div>
@@ -156,7 +160,11 @@ function toggleSubcategories(id) {
       {% for value, label in form.date_range.field.choices %}
         <label>
           <input type="radio" name="date_range" value="{{ value }}" {% if form.date_range.value == value %}checked{% endif %}>
-          <span class="option">{{ label }}</span>
+          <span class="option">~ 1か月</span>
+          <span class="option">~ 2か月</span> 
+          <span class="option">~ 3か月</span>
+          <span class="option">~ 5か月</span>
+          <span class="option">~ 1年</span>
         </label>
       {% endfor %}
     </div>
