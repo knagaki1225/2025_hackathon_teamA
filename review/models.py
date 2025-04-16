@@ -40,7 +40,7 @@ class Reply(models.Model):
 class Class(models.Model):
     user_id = models.ForeignKey("account.User", on_delete=models.CASCADE)
     class_name = models.CharField(max_length=20)
-    category_id = models.ForeignKey("review.Category", on_delete=models.CASCADE, related_name='classes')
+    category_id = models.ForeignKey("review.Category", on_delete=models.CASCADE)
     difficulty = models.IntegerField(default=1)
     comment = models.TextField(null=True, blank=True)
     priority_idx = models.IntegerField(default=100)
