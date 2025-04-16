@@ -136,11 +136,11 @@
       class="category-title"
       onclick="toggleSubcategories('subcat-{{ category.id }}')"
     >
-      {{ category.name }}
+      {{ category.category_name }}
     </div>
     <div class="subcategory-list" id="subcat-{{ category.id }}">
-      {% for sub in category.subcategories %}
-      <a href="#" class="subcategory-item">{{ sub.name }}</a>
+      {% for sub in category.classes.all %}
+      <a href="#" class="subcategory-item">{{ sub.class_name }}</a>
       {% endfor %}
     </div>
   </div>
