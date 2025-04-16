@@ -47,7 +47,7 @@ def review_list(request):
 
     forms = searchForm(request.GET)
 
-    categories = Category.objects.prefetch_related('classes')
+    categories = Category.objects.filter(del_flg=False).prefetch_related('classes')
     
     return render(request, 'home.html', {'reviews': reviews,'searchForm':forms,'categories': categories})
 
