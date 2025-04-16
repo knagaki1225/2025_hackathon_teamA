@@ -11,6 +11,7 @@ from django.contrib.auth import get_user_model
 from .models import User
 from django.contrib.auth import views as auth_views
 from review.models import Review, Good
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 User = get_user_model()
@@ -36,7 +37,7 @@ def upload_icon(request):
 
 class AllView(generic.ListView):
     model = User
-    template_name = 'accounts/all.html'
+    template_name = 'account_list/account_list.html'
 
 def AccountDetail(request, pk):
     user = get_object_or_404(User, pk=pk)
@@ -44,10 +45,6 @@ def AccountDetail(request, pk):
     good = Good.objects.filter(user_id__in=[pk], del_flg=False).count()
 
     return render(request, 'account_list/account_mypage.html', {'user':user, 'review':review, 'good':good})
-
-class AccountsDetailView(generic.DetailView):
-    model = User
-    template_name = 'account_list/account_mypage.html'
     
 class HomeView(TemplateView):
     template_name = 'home.html'
