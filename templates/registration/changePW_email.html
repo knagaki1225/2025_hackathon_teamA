@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <title>changePW email</title>
+    <style>
+        .all{
+            display: flex;
+        }
+        label{
+            display: block;
+        }
+        input{
+            border: none;
+            border-bottom: 2px solid white;
+        }
+        input{
+            background-color: #5CC0EF;
+        }
+        .important_points{
+            color: #FFFFFF;
+            font-size: 13px;
+        }
+        button{
+            font-size: 20px;
+            padding: 10px 150px;
+            border-radius: 20px;
+            background-color: white;
+            color: #5CC0EF;
+            border: none;
+            margin-top: 250px;
+        }
+        label{
+            color: white;
+        }
+        .sign_up_item{
+            display: flex;
+        }
+        .sign_up_item p{
+            font-size: 11px;
+        }
+        .sign_up_item a{
+            font-size: 11px;
+        }
+        .changePW_img{
+            background-color: white;
+        }
+        {% comment %} 位置調整 {% endcomment %}
+        .changePW_item{
+            margin-top: 50px;
+        }
+
+        .sign_up_item{
+            margin-top: 100px;
+        }
+        .changePW_text{
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #5CC0EF;
+        }
+        input{
+            padding: 10px;
+        }
+        {% comment %} 色変更 {% endcomment %}
+        input::placeholder{
+            color: white;
+        }
+        a{
+            position: relative;
+            text-decoration: none;
+            color: #1C75BC;
+        }
+        {% comment %} 画像 {% endcomment %}
+        .changePW_img{
+            white: 900px;
+            height: 700px;
+            margin: 0 auto;
+        }
+        .changePW_img img{
+            white: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="changePW_img">
+            <img src="../../img/ChangePW_img.png" alt="" class="icon">
+        </div>
+        <div class="changePW_text">
+
+            <p class="important_points">
+                パスワード変更の確認通知を送信するため、<br>管理者のメールアドレスを入力してください。<br>
+                誤ったメールアドレスを入力しないようご注意ください。
+            </p>
+
+            <div class="changePW_item">
+                <label>送信先メールアドレス</label>
+                <input type="text" class="email" name="email" size="32" placeholder="Eメールアドレスを入力" required>
+            </div>
+            <button type="submit">Sign up</button>
+        </div>
+    </div>
+</body>
+</html>

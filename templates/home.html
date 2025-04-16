@@ -105,27 +105,6 @@
     text-align: center;
   }
 
-  .review-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-left: 8px solid #00aaff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-
-  .review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .review-header img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
 </style>
 
 <div>選択可能科目</div>
@@ -214,21 +193,47 @@
   </div>
 </form>
 
-<!-- 検索結果（レビューカード） -->
-<h2>いいねが多いレビュー</h2>
-{% for review in reviews %}
-<div class="review-card">
-  <div class="review-header">
-    <div>
-      <div>
-        {{ review.user_name }} | {{ review.posted_at|date:"Y年m月d日" }}
-      </div>
-      <span style="color: red; font-size: 20px">
-        {% for i in "12345" %}
-        {% if forloop.counter <= review.rating|floatformat:0 %} ★ {% else %} ☆ {% endif %}
-        {% endfor %}
-        <div class="review-rating">{{ review.rating }} / 5</div>
-      </span>
+  <form method="get" class="search-container">
+    <!-- キーワード検索 -->
+    <input type="text" name="keyword" placeholder="Search" value="{{ form.keyword.value|default_if_none:'' }}">
+
+    <!-- 総合評価 -->
+    <div class="filter-group">
+      <label>総合評価</label>
+      {% for value, label in form.rating.field.choices %}
+        <label>
+          <input type="radio" name="rating" value="{{ value }}" {% if form.rating.value == value %}checked{% endif %}>
+          <span class="option">★ ~</span>
+          <span class="option">★★ ~</span>
+          <span class="option">★★★ ~</span>
+          <span class="option">★★★★ ~</span>
+          <span class="option">★★★★★</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    <!-- 投稿日 -->
+    <div class="filter-group">
+      <label>投稿日</label>
+      {% for value, label in form.date_range.field.choices %}
+        <label>
+          <input type="radio" name="date_range" value="{{ value }}" {% if form.date_range.value == value %}checked{% endif %}>
+          <span class="option">~ 1か月</span>
+          <span class="option">~ 2か月</span> 
+          <span class="option">~ 3か月</span>
+          <span class="option">~ 5か月</span>
+          <span class="option">~ 1年</span>
+        </label>
+      {% endfor %}
+    </div>
+
+    <!-- その他 -->
+    <div class="filter-group">
+      <label>その他</label>
+      <label>
+        <input type="checkbox" name="many_likes" {% if form.many_likes.value %}checked{% endif %}>
+        <span class="option">いいね数が多い</span>
+      </label>
     </div>
   </div>
   <div>
@@ -240,7 +245,58 @@
 <p>レビューが見つかりませんでした。</p>
 {% endfor %}
 
-<form method="get" action="{% url 'review:search' %}">
+    <div class="button">
+      <input type="submit" class="search-button" value="検索">
+    </div>
+  </form>
+
+   <!-- 検索結果（レビューカード） -->
+   <h2>いいねが多いレビュー</h2>
+   {% for review in reviews %}
+  <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+
+    <!-- ユーザー情報 -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center;">
+        <div style="width: 24px; height: 24px; background: black; border-radius: 50%; margin-right: 10px;"></div>
+        <div style="font-size: 14px;">
+          <strong>
+            {% if review.anonymity_flg %}
+              匿名
+            {% else %}
+              {{ review.user_id.username }}
+            {% endif %}
+          </strong>
+          <span style="color: #666; margin-left: 10px;">
+            {{ review.user_id.department }}　{{ review.user_id.grade }}年
+          </span>
+        </div>
+      </div>
+      <div style="font-size: 20px;">…</div>
+    </div>
+
+    <!-- レヴュー評価 -->
+    <div style="margin-top: 10px; background: #4FC3F7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: 20px; width: fit-content;">
+      <div style="color: red;">
+        {% for i in "12345" %}
+          {% if forloop.counter <= review.review_num %}
+            ★
+          {% else %}
+            ☆
+          {% endif %} 
+        {% endfor %}
+      </div>
+      <div style="color: black;">{{ review.review_num }}</div>
+    </div>
+
+    <!-- レビューコメント -->
+    <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
+      {{ review.comment|linebreaksbr }}
+    </div>
+  </div>
+  {% endfor %}
+
+<form class="" method="get" action="{% url 'review:search' %}">
   {{ searchForm.as_p }}
   <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
