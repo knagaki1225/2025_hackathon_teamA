@@ -136,7 +136,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']    # 静的ファイルのディレクトリの場所
+STATICFILES_DIRS = [BASE_DIR / 'img']    # 静的ファイルのディレクトリの場所
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # 本番環境用
 

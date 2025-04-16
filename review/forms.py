@@ -29,8 +29,8 @@ class searchForm(forms.Form):
         choices=[
             ('30', '～１ヶ月'),
             ('60', '～２か月'),
-            ('180', '～３ヶ月'),
-            ('300', '～５ヶ月'),
+            ('90', '～３ヶ月'),
+            ('150', '～５ヶ月'),
             ('365', '～１年'),
         ],
         widget=forms.RadioSelect,
@@ -42,4 +42,4 @@ class searchForm(forms.Form):
         choices=[('true', 'いいね数が多い')],
         widget=forms.CheckboxSelectMultiple,
         required=False
-)
+    )
