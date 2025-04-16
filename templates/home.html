@@ -3,6 +3,8 @@
 {% block title %}ホーム{% endblock %}
 
 {% block content %}
+
+
 <style>
   .sidebar {
     width: 250px;
@@ -25,21 +27,21 @@
   .subcategory-list {
     display: none;
     margin-left: 15px;
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none;  /* リストの点を非表示にする */
+    padding: 0;  /* リストの余白をなくす */
   }
 
   .subcategory-item {
-    display: block;
+    display: block;  /* リストアイテムを縦に並べる */
     margin: 5px 0;
     padding: 5px;
     color: blue;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none;  /* リンクの下線をなくす */
   }
 
   .subcategory-item:hover {
-    text-decoration: underline;
+    text-decoration: underline;  /* マウスオーバー時に下線を追加 */
   }
 
   .search-container {
@@ -47,7 +49,7 @@
     padding: 30px;
     border-radius: 20px;
     max-width: 650px;
-    margin: 0 60px 60px auto;
+    margin: 0 60px 60px auto
   }
 
   .search-container input[type="text"] {
@@ -80,6 +82,7 @@
     font-weight: bold;
   }
 
+
   .filter-group input[type="radio"],
   .filter-group input[type="checkbox"] {
     display: none;
@@ -100,98 +103,37 @@
     cursor: pointer;
     text-align: center;
   }
-
   .button {
     text-align: center;
   }
 
+
 </style>
 
-<div>選択可能科目</div>
 <div class="sidebar">
   {% for category in categories %}
-  <div class="category-block">
-    <div
-      class="category-title"
-      onclick="toggleSubcategories('subcat-{{ category.id }}')"
-    >
-      {{ category.category_name }}
+    <div class="category-block">
+      <div class="category-title" onclick="toggleSubcategories('subcat-{{ category.id }}')">
+        {{ category.name }}
+      </div>
+      <div class="subcategory-list" id="subcat-{{ category.id }}">
+        {% for sub in category.subcategories %}
+          <a href="{% url 'subcategory_detail' sub.name %}" class="subcategory-item">
+            {{ sub.name }}
+          </a>
+        {% endfor %}
+      </div>
     </div>
-    <div class="subcategory-list" id="subcat-{{ category.id }}">
-      {% for sub in category.classes.all %}
-      <a href="#" class="subcategory-item">{{ sub.class_name }}</a>
-      {% endfor %}
-    </div>
-  </div>
   {% endfor %}
 </div>
 
 <script>
-  function toggleSubcategories(id) {
-    const subcatDiv = document.getElementById(id);
-    subcatDiv.style.display =
-      subcatDiv.style.display === "block" ? "none" : "block";
-  }
+function toggleSubcategories(id) {
+  const subcatDiv = document.getElementById(id);
+  subcatDiv.style.display = (subcatDiv.style.display === "block") ? "none" : "block";
+}
 </script>
 
-<form method="get" class="search-container">
-  <!-- キーワード検索 -->
-  <input
-    type="text"
-    name="keyword"
-    placeholder="Search"
-    value="{{ form.keyword.value|default_if_none:'' }}"
-  />
-
-  <!-- 総合評価 -->
-  <div class="filter-group">
-    <label>総合評価</label>
-    {% for value, label in form.rating.field.choices %}
-    <label>
-      <input
-        type="radio"
-        name="rating"
-        value="{{ value }}"
-        {% if form.rating.value == value %}checked{% endif %}
-      />
-      <span class="option">{{ label }}</span>
-    </label>
-    {% endfor %}
-  </div>
-
-  <!-- 投稿日 -->
-  <div class="filter-group">
-    <label>投稿日</label>
-    {% for value, label in form.date_range.field.choices %}
-    <label>
-      <input
-        type="radio"
-        name="date_range"
-        value="{{ value }}"
-        {% if form.date_range.value == value %}checked{% endif %}
-      />
-      <span class="option">{{ label }}</span>
-    </label>
-    {% endfor %}
-  </div>
-
-  <!-- その他 -->
-  <div class="filter-group">
-    <label>その他</label>
-    <label>
-      <input
-        type="checkbox"
-        name="many_likes"
-        {% if form.many_likes.value %}checked{% endif %}
-      />
-      <span class="option">いいね数が多い</span>
-    </label>
-  </div>
-
-  <div class="button">
-    <input type="submit" class="search-button" value="検索" />
-  </div>
-</form>
 
   <form method="get" class="search-container">
     <!-- キーワード検索 -->
@@ -235,15 +177,6 @@
         <span class="option">いいね数が多い</span>
       </label>
     </div>
-  </div>
-  <div>
-    {{ review.course_name }}
-    <p>{{ review.comment|linebreaksbr }}</p>
-  </div>
-</div>
-{% empty %}
-<p>レビューが見つかりませんでした。</p>
-{% endfor %}
 
     <div class="button">
       <input type="submit" class="search-button" value="検索">
@@ -301,10 +234,11 @@
   <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 
+
 {% for review in reviews|slice:":3" %}
-<p>-----------------------</p>
-<p>{{ review.class_id }}</p>
-<p>{{ review.review_num }}</p>
-<a href="{% url 'review:detailReview' review.id %}">詳細</a>
+  <p>-----------------------</p>
+  <p>{{ review.class_id }}</p>
+  <p>{{ review.review_num }}</p>
+  <a href="{% url 'review:detailReview' review.id %}">詳細</a>
 {% endfor %}
 {% endblock %}
