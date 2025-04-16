@@ -110,28 +110,31 @@
 
 </style>
 
+<div>選択可能科目</div>
 <div class="sidebar">
   {% for category in categories %}
-    <div class="category-block">
-      <div class="category-title" onclick="toggleSubcategories('subcat-{{ category.id }}')">
-        {{ category.name }}
-      </div>
-      <div class="subcategory-list" id="subcat-{{ category.id }}">
-        {% for sub in category.subcategories %}
-          <a href="{% url 'subcategory_detail' sub.name %}" class="subcategory-item">
-            {{ sub.name }}
-          </a>
-        {% endfor %}
-      </div>
+  <div class="category-block">
+    <div
+      class="category-title"
+      onclick="toggleSubcategories('subcat-{{ category.id }}')"
+    >
+      {{ category.category_name }}
     </div>
+    <div class="subcategory-list" id="subcat-{{ category.id }}">
+      {% for sub in category.classes.all %}
+      <a href="#" class="subcategory-item">{{ sub.class_name }}</a>
+      {% endfor %}
+    </div>
+  </div>
   {% endfor %}
 </div>
 
 <script>
-function toggleSubcategories(id) {
-  const subcatDiv = document.getElementById(id);
-  subcatDiv.style.display = (subcatDiv.style.display === "block") ? "none" : "block";
-}
+  function toggleSubcategories(id) {
+    const subcatDiv = document.getElementById(id);
+    subcatDiv.style.display =
+      subcatDiv.style.display === "block" ? "none" : "block";
+  }
 </script>
 
 
