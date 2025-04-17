@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}ホーム{% endblock %}
 
 {% block content %}
@@ -127,7 +127,26 @@
     margin-top: 70px;
     margin-left: 150px;
   }
+  
+    .review-header{
+    display: flex;
+  }
+
+  .review-header  img{
+    width: 45px;
+    height: 45px;
+    border-radius:50%;
+  }
+  .top img {
+    width: 100%;
+    height: 481%;
+  }
 </style>
+
+<div class="top">
+  <img src="{% static "img/Rectangle 248.png" %}" alt="img">
+</div>
+
 
 <div class="content-container">
   <div class="left-sidebar">
@@ -147,9 +166,6 @@
           {% endfor %}
         </div>
       </div>
-      {% endfor %}
-    </div>
-  </div>
 
   <div class="right-content">
     <form method="get" class="search-container" action="{% url 'review:search' %}" >
@@ -227,8 +243,34 @@
       {{ review.class_id }}
       <p>{{ review.comment|linebreaksbr }}</p>
     </div>
-  </div>
-{% empty %}
-  <p>レビューが見つかりませんでした。</p>
-{% endfor %}
+  </form>
+
+   <!-- 検索結果（レビューカード） -->
+   <h2>いいねが多いレビュー</h2>
+   {% for review in reviews|slice:":3" %}
+     <div class="review-card">
+       <div class="review-header">
+          <img src="{% static 'img/login_img.png' %}" alt="User">
+          <div>
+           <div>{% if review.anonymity_flg %}匿名{% else %}{{ review.user_id }}{% endif %} | {{ review.create_at|date:"Y年m月d日" }}</div>
+           <span style="color: red; font-size: 20px;">
+            {% for i in "12345" %}
+              {% if i <= review.review_num|floatformat:0 %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+            <div class="review-rating">{{ review.review_num }}</div>
+          </span>
+         </div>
+       </div>
+       <div>
+         {{ review.class_id }}
+         <p>{{ review.comment|linebreaksbr }}</p>
+       </div>
+     </div>
+   {% empty %}
+     <p>レビューが見つかりませんでした。</p>
+   {% endfor %}
 {% endblock %}

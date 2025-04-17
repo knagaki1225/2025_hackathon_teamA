@@ -1,3 +1,4 @@
+{% load static%}
 {% comment %} アカウント一覧画面 {% endcomment %}
 {% load static %}
 <!DOCTYPE html>
@@ -6,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <link rel="stylesheet" href="{% static 'account/account.edit.css' %}">
+    <script src="{% static 'account/account.edit.js' %}"></script>
     <title>Account List</title>
     <style>
         .all{
@@ -185,22 +188,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>user01</td>
-                        <td>s.tomaki.sys23@morijyobi.ac.jp</td>
-                        <td>高度情報工学科</td>
-                        <td>3年</td>
-                        <td class="green"><p>利用者</p></td>
-                        <td>...</td>
-                    </tr>
-                    <tr>
-                        <td>admin01</td>
-                        <td>s.tomaki.sys23@morijyobi.ac.jp</td>
-                        <td>高度情報工学科</td>
-                        <td>教師</td>
-                        <td class="red"><p>管理者</p></td>
-                        <td>...</td>
-                    </tr>
                     {% for user in object_list %}
                         <tr>
                             <td>{{ user.last_name }} {{ user.first_name }} </td>
@@ -213,16 +200,52 @@
                                     {{ user.grade }}
                                 {% endif %}
                             </td>
-                            {% if user.is_staff %}
+                            {% if user.admin_flg %}
                                 <td class="red"><p>管理者</p></td>
                             {% else %}
                                 <td class="green"><p>利用者</p></td>
                             {% endif %}
-                            <td>...</td>
+                            <td><button class="edit-btn" data-user-id="{{ user.id }}" data-department-id="{{ user.department_id.id }}" data-admin-flg="{{ user.admin_flg|yesno:'true,false' }}" onclick="openUserEditPopup(this)">...</button></td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            
+
+            <!-- ポップアップはこの1つだけ画面の外に持っておく -->
+            <div id="userEditPopup" class="popup-overlay" style="display: none;">
+                <div class="popup-content">
+                    <form method="POST" action="{% url 'account:edit_user' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="popup-user-id">
+
+                    <!-- 学科選択 -->
+                    <div class="form-group">
+                        <select name="department_id" id="popup-department-select" class="dropdown-select">
+                        {% for dept in departments %}
+                            <option value="{{ dept.id }}">{{ dept.department_name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- 権限選択 -->
+                    <div class="form-group">
+                        <label>
+                        <input type="radio" name="admin_flg" value="true" id="popup-admin-true">
+                            管理者
+                        </label>
+                        <label>
+                        <input type="radio" name="admin_flg" value="false" id="popup-admin-false">
+                            利用者
+                        </label>
+                    </div>
+
+                    <!-- 登録ボタン -->
+                    <button type="submit" class="submit-btn">Registration</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 
