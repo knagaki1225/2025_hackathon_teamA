@@ -50,23 +50,23 @@
       <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
     {% endif %}
 
-    <!-- ポップアップ本体 -->
-    <div id="reviewPopup" class="popup">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">×</span>
-        <form id="reviewForm" method="post" action="{% url 'review:createReview' class_info.id %}">
-          {% csrf_token %}
-          <div class="stars" id="starContainer">
-            {% for i in "12345" %}
-              <span class="star" data-value="{{ forloop.counter }}">☆</span>
-            {% endfor %}
-          </div>
-          {% comment %} <input type="hidden" name="review_num" id="rating" value="3">
-          <select onchange="setRating(this.value)">
-            {% for i in "12345" %}
-            <option value="{{ forloop.counter }}" {% if forloop.counter == 3 %}selected{% endif %}>{{ forloop.counter }}</option>
-            {% endfor %}
-          </select> {% endcomment %}
+  <!-- ポップアップ本体 -->
+  <div id="reviewPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <form id="reviewForm" method="post" action="{% url 'review:createReview' class_info.id %}">
+        {% csrf_token %}
+        <div class="stars" id="starContainer">
+          {% for i in "12345" %}
+            <span class="star" data-value="{{ forloop.counter }}">☆</span>
+          {% endfor %}
+        </div>
+        <input type="hidden" name="review_num" id="rating" value="3">
+        <select onchange="setRating(this.value)">
+          {% for i in "12345" %}
+          <option value="{{ forloop.counter }}" {% if forloop.counter == 3 %}selected{% endif %}>{{ forloop.counter }}</option>
+          {% endfor %}
+        </select>
 
           <label for="comment">コメント（任意）</label>
           <textarea name="comment" id="comment" rows="4" cols="40"></textarea>
@@ -121,36 +121,13 @@
           <div style="color: black;">{{ review.review_num }}</div>
         </div>
 
-        <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white; margin-left: 30px;">
-          {{ review.comment|linebreaksbr }}
-        </div>
-      </div>
-      <div style="margin-left: 50px; margin-top: 15px;">
-        {% comment %} <form method="post" style="display: flex; align-items: center; gap: 10px;">
-          {% csrf_token %}
-          <input type="text" name="content" placeholder="コメントを入力..." style="flex-grow: 1; padding: 8px; border-radius: 20px; border: 1px solid #ccc;">
-          <div style="display: flex; align-items: center;">
-            <label class="switch" style="margin-right: 5px;">
-              <input type="checkbox" name="anonymity_flg" checked>
-              <span class="slider" style="width: 30px; height: 20px;"></span>
-            </label>
-            <span style="font-size: 12px;">匿名</span>
-          </div>
-          <button type="submit" style="background-color: #4FC3F7; color: white; border: none; border-radius: 4px; padding: 6px 12px; cursor: pointer;">送信</button>
-        </form> {% endcomment %}
-        <div class="moment" style="">
-          <div class="name" style="display: flex; ">
-            <img src="{% static 'img/Ellipse 18.png' %}" alt="icon">
-            <p style="font-size: 16px">sasaki</p>
-            <p style="font-size: 16px">高度情報システム工学科2年</p>
-          </div>
-          <div class="text" style="border: 1px solid black; border-radius: 30px;">
-            <p>texttexrtexrtexrtexrtexrtexrtexrtexrtexrtextexrtextexrtextexrtex</p>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-    
+    <!-- レビューコメント -->
+    <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
+      {{ review.comment|linebreaksbr }}
+    </div>
+
   </div>
-  
+{% endfor %}
+
+</div>
 {% endblock %}
