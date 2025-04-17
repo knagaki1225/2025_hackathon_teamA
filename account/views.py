@@ -1,16 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from django.views import generic
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from .forms import ImageUploadForm
 from django.contrib.auth import get_user_model
 from .models import User
 from django.contrib.auth import views as auth_views
-from review.models import Review, Good
+from review.models import Review, Good, Department
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -38,6 +37,11 @@ def upload_icon(request):
 class AllView(generic.ListView):
     model = User
     template_name = 'account_list/account_list.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['departments'] = Department.objects.filter(del_flg=False)  # ← ここで学科一覧を追加
+        return context
 
 def AccountDetail(request, pk):
     user = get_object_or_404(User, pk=pk)
@@ -100,3 +104,17 @@ class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 
 class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'account/password_reset_complete.html'
+
+@login_required
+def edit_user(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        department_id = request.POST.get('department_id')
+        admin_flg = request.POST.get('admin_flg') == 'true'
+
+        user = get_object_or_404(User, id=user_id)
+        user.department_id_id = department_id
+        user.admin_flg = admin_flg
+        user.save()
+
+        return redirect('account:all')  # ユーザー一覧に戻す
