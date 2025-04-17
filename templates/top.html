@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -84,12 +85,13 @@
         <img src="{% static 'img/logo_img.png' %}" alt="logo">
         <nav>
             <ul class="global-nav">
-                <li><a href="{% url 'account:accountsDetail' pk=user.id %}"><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
+                <li><a href="{% url 'review:index' %}"><img src="{% static "img/Chats.png" %}" alt="">ReviewList</a></li>
+                <li><a href="{% url 'account:accountsDetail' pk=user.id %}"><img src="{% static "img/user.png" %}" alt="" class="icon">Mypage</a></li>
             </ul>
         </nav>
     </div>
     <div class="btn">
-        <a href="{% url 'logout' %}"><button class="admin">admin</button></a>
+        <a href="{% url 'account:all' %}"><button class="admin">admin</button></a>
         <a href="{% url 'logout' %}"><button class="logout">logout</button></a>
 </header>
 <body>

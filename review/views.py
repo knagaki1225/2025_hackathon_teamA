@@ -1,54 +1,68 @@
 from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
-from .models import Review, Class, Category, Reply
+from .models import Review, Class, Category, Reply, Good
 from django.db.models import Count, Q, Avg
 from .forms import searchForm
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views import View
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from itertools import islice
 
 def search(request):
     result = None
     forms = searchForm(request.GET)
 
     if forms.is_valid():
-        result = None
+        results = None
+        result = []
         words = forms.cleaned_data['words']
         review_num = forms.cleaned_data['review_num']
         result_date = forms.cleaned_data.get('result_date')
         good = forms.cleaned_data.get('good')
 
         if words == '':
-            result = Review.objects.all()
+            results = Review.objects.all()
         else:
             # Classのnameフィールドにwordsが含まれているClassを取得
             class_ids = Class.objects.filter(class_name__icontains=words).values_list('id', flat=True)
             # Reviewモデルでclass_idが上で取得したclass_idsに含まれるレビューを取得
-            result = Review.objects.filter(class_id__in=class_ids)
+            results = Review.objects.filter(class_id__in=class_ids)
         
         if review_num:
-            result = result.filter(review_num__gte=review_num)
+            results = results.filter(review_num__gte=review_num)
         
         if result_date:
             now = timezone.now()
             ago = now - timedelta(days=result_date)
-            result = result.filter(create_at__gte=ago)
+            results = results.filter(create_at__gte=ago)
         
         if good:
-            result = result.annotate(good_count=Count('good', filter=Q(good__del_flg=False))).order_by('-good_count')
+            results = results.annotate(good_count=Count('good', filter=Q(good__del_flg=False))).order_by('-good_count')
+        
+        for tmp in results:
+            good_count = Good.objects.filter(review_id = tmp.id, del_flg = False).count()
+            result.append([tmp, good_count])
 
-    return render(request, 'review/result.html',{'results':result,'searchForm':forms})
+    categories = Category.objects.filter(del_flg=False).prefetch_related('classes')
+
+    return render(request, 'home.html',{'results':result,'searchForm':forms, 'categories': categories})
 
 @login_required
 def review_list(request):
-    reviews = Review.objects.annotate(
+    tmps = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
     ).order_by('-good_count')
+
+    reviews = []
+
+    for review in islice(tmps, 3):
+        good_count = Good.objects.filter(review_id = review.id, del_flg = False).count()
+        tmp = [review, good_count]
+        reviews.append(tmp)
 
     forms = searchForm(request.GET)
 

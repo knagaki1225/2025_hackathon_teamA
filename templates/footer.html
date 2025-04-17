@@ -67,9 +67,9 @@
         <br>レビューを読んで、書いて、より納得のいく履修選びを。</p>
     </div>
     <div class="footer-section footer-links">
-      <a href="#">科目一覧</a>
-      <a href="#">レビュー一覧</a>
-      <a href="#">アカウント設定</a>
+      {% comment %} <a href="#">科目一覧</a> {% endcomment %}
+      {% comment %} <a href="#">レビュー一覧</a> {% endcomment %}
+      <a href="{% url 'account:accountsDetail' pk=user.id %}">アカウント設定</a>
     </div>
     <div class="footer-section footer-credits">
       <p>作成チーム<a href="#">　A team</a></p>
