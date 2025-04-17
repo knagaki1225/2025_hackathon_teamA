@@ -226,8 +226,8 @@
   <div style="max-width: 650px; margin: 0 auto 0 300px;">
     <h2>いいねが多いレビュー</h2>
     {% for review, good_count in reviews|slice:":3" %}
-      <div style="margin: 10px 0;  padding-left: 100px;">
-        <strong style=" font-size:25px;">{{ review.class_id }}</strong>
+      <div style="margin: 10px 0;  padding-left: 100px; margin-bottom: 25px;">
+        <strong style=" font-size:15px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="display: flex; align-items: center;">
