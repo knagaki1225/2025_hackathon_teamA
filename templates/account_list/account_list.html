@@ -1,4 +1,5 @@
 {% comment %} アカウント一覧画面 {% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -158,9 +159,9 @@
                     </div>
                     <p>機能一覧</p>
                     <ul>
-                        <li><a href=""><img src="../../img/home.png" alt="home">マイページ</a></li>
-                        <li><a href="#"><img src="../../img/user.png" alt="user" class="user_img">ユーザーリスト</a></li>
-                        <li><a href=""><img src="../../img/Chats.png" alt="revie">レビュー閲覧</a></li>
+                        <li><a href=""><img src="{% static 'img/home.png' %}" alt="home">マイページ</a></li>
+                        <li><a href="#"><img src="{% static 'img/user.png' %}" alt="user" class="user_img">ユーザーリスト</a></li>
+                        <li><a href=""><img src="{% static 'img/Chats.png' %}" alt="revie">レビュー閲覧</a></li>
                     </ul>
                 </section>
             </div>

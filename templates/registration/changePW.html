@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -75,7 +76,7 @@
 <body>
     <div class="all">
         <div class="login_img">
-            <img src="../../img/ChangePW_img.png" alt="" class="icon">
+            <img src="{% static "img/ChangePW_img.png" %}" class="icon">
         </div>
         <div class="login_text">
             <form action="{% url 'login' %}" method="post">
