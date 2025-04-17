@@ -215,6 +215,7 @@
             <!-- ポップアップはこの1つだけ画面の外に持っておく -->
             <div id="userEditPopup" class="popup-overlay" style="display: none;">
                 <div class="popup-content">
+                    <span class="close-btn" onclick="closePopup()">×</span>
                     <form method="POST" action="{% url 'account:edit_user' %}">
                     {% csrf_token %}
                     <input type="hidden" name="user_id" id="popup-user-id">

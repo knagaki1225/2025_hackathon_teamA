@@ -62,11 +62,11 @@
           {% endfor %}
         </div>
         <input type="hidden" name="review_num" id="rating" value="3">
-        <select onchange="setRating(this.value)">
+        {% comment %} <select onchange="setRating(this.value)">
           {% for i in "12345" %}
           <option value="{{ forloop.counter }}" {% if forloop.counter == 3 %}selected{% endif %}>{{ forloop.counter }}</option>
           {% endfor %}
-        </select>
+        </select> {% endcomment %}
 
           <label for="comment">コメント（任意）</label>
           <textarea name="comment" id="comment" rows="4" cols="40"></textarea>
