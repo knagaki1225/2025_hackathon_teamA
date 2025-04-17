@@ -36,7 +36,7 @@
     <div style="margin-top: 20px;">
       <h3 style="font-weight: bold; font-size: 18px;">授業概要</h3>
       <ul style="padding-left: 20px;">
-        {{ class.comment }}
+        {{ class_info.comment|linebreaksbr  }}
       </ul>
     </div>
 
@@ -141,7 +141,7 @@
           <div style="font-size: 20px; margin-left: 570px;">…</div>
         </div>
         <div class="text" style="border: 1px solid black; border-radius: 30px; margin: 0 100px;">
-          <p style="padding: 10px;">{{ reply.reply }}</p>
+          <p style="padding: 10px;">{{ reply.reply|linebreaksbr }}</p>
         </div>
       </div>
     {% endfor %}
