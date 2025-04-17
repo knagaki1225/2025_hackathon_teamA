@@ -17,32 +17,39 @@ def search(request):
     forms = searchForm(request.GET)
 
     if forms.is_valid():
-        result = None
+        results = None
+        result = []
         words = forms.cleaned_data['words']
         review_num = forms.cleaned_data['review_num']
         result_date = forms.cleaned_data.get('result_date')
         good = forms.cleaned_data.get('good')
 
         if words == '':
-            result = Review.objects.all()
+            results = Review.objects.all()
         else:
             # Classのnameフィールドにwordsが含まれているClassを取得
             class_ids = Class.objects.filter(class_name__icontains=words).values_list('id', flat=True)
             # Reviewモデルでclass_idが上で取得したclass_idsに含まれるレビューを取得
-            result = Review.objects.filter(class_id__in=class_ids)
+            results = Review.objects.filter(class_id__in=class_ids)
         
         if review_num:
-            result = result.filter(review_num__gte=review_num)
+            results = results.filter(review_num__gte=review_num)
         
         if result_date:
             now = timezone.now()
             ago = now - timedelta(days=result_date)
-            result = result.filter(create_at__gte=ago)
+            results = results.filter(create_at__gte=ago)
         
         if good:
-            result = result.annotate(good_count=Count('good', filter=Q(good__del_flg=False))).order_by('-good_count')
+            results = results.annotate(good_count=Count('good', filter=Q(good__del_flg=False))).order_by('-good_count')
+        
+        for tmp in results:
+            good_count = Good.objects.filter(review_id = tmp.id, del_flg = False).count()
+            result.append([tmp, good_count])
 
-    return render(request, 'review/result.html',{'results':result,'searchForm':forms})
+    categories = Category.objects.filter(del_flg=False).prefetch_related('classes')
+
+    return render(request, 'home.html',{'results':result,'searchForm':forms, 'categories': categories})
 
 @login_required
 def review_list(request):
