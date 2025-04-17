@@ -92,7 +92,7 @@
   </div>
 
 
-  {% for review in related_reviews %}
+  {% for review, replies in reviews %}
   <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
 
     <!-- ユーザー情報 -->
@@ -133,9 +133,12 @@
     <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
       {{ review.comment|linebreaksbr }}
     </div>
+    {% for reply in replies %}
+      <p>{{ reply.reply }}</p>
+    {% endfor %}
 
   </div>
-{% endfor %}
+  {% endfor %}
 
 </div>
 {% endblock %}

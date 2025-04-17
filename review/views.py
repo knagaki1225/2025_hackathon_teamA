@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
-from .models import Review, Class, Category
+from .models import Review, Class, Category, Reply
 from django.db.models import Count, Q, Avg
 from .forms import searchForm
 from datetime import datetime, timedelta
@@ -70,12 +70,23 @@ class ReviewDetailView(LoginRequiredMixin, generic.DetailView):
             del_flg=False
         )
 
+        reviews = []
+
+        for review in related_reviews:
+            reply = Reply.objects.filter(
+                review_id = review.id,
+                del_flg = False
+            )
+            tmp = [review, reply]
+
+            reviews.append(tmp)
+
         # 平均レビュー点数も del_flg=False で絞る
         avg_review = related_reviews.aggregate(avg=Avg('review_num'))['avg']
 
         # コンテキストに追加
         context['class_info'] = target_class
-        context['related_reviews'] = related_reviews
+        context['reviews'] = reviews
         context['avg_review_num'] = avg_review
 
         return context
