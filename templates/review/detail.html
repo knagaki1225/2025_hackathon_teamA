@@ -52,8 +52,10 @@
 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; margin-bottom: 20px;">
   <div style="font-size: 28px; font-weight: bold; margin: 40px;">レビュー</div>
 
-  <!-- レビュー投稿ボタン -->
-  <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
+  {% if request.user.department_id.id != 2 and request.user.department_id.id != 3 %}
+    <!-- レビュー投稿ボタン -->
+    <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
+  {% endif %}
 
   <!-- ポップアップ本体 -->
   <div id="reviewPopup" class="popup">
