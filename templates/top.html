@@ -76,8 +76,7 @@
         </div>
         <nav>
             <ul class="global-nav">
-                <li><a href=""><img src="../img/Chats.png" class="icon">Review list</a></li>
-                <li><a href=""><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
+                <li><a href="{% url 'account:accountsDetail' pk=user.id %}"><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
             </ul>
         </nav>
     </div>
