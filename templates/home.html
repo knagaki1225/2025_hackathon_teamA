@@ -166,6 +166,9 @@
           {% endfor %}
         </div>
       </div>
+      {% endfor %}
+    </div>
+  </div>
 
   <div class="right-content">
     <form method="get" class="search-container" action="{% url 'review:search' %}" >
@@ -198,11 +201,11 @@
       <div class="filter-group">
         <label>その他</label>
           {% for form in searchForm.good %}
-          <label>
-            {{ form.tag }}
-            <span class="option">{{form.choice_label}}</span>
-          </label>
-        {% endfor %}
+            <label>
+              {{ form.tag }}
+              <span class="option">{{form.choice_label}}</span>
+            </label>
+          {% endfor %}
       </div>
 
       <div class="button">
@@ -244,31 +247,6 @@
       <p>{{ review.comment|linebreaksbr }}</p>
     </div>
   </form>
-
-   <!-- 検索結果（レビューカード） -->
-   <h2>いいねが多いレビュー</h2>
-   {% for review in reviews|slice:":3" %}
-     <div class="review-card">
-       <div class="review-header">
-          <img src="{% static 'img/login_img.png' %}" alt="User">
-          <div>
-           <div>{% if review.anonymity_flg %}匿名{% else %}{{ review.user_id }}{% endif %} | {{ review.create_at|date:"Y年m月d日" }}</div>
-           <span style="color: red; font-size: 20px;">
-            {% for i in "12345" %}
-              {% if i <= review.review_num|floatformat:0 %}
-                ★
-              {% else %}
-                ☆
-              {% endif %}
-            {% endfor %}
-            <div class="review-rating">{{ review.review_num }}</div>
-          </span>
-         </div>
-       </div>
-       <div>
-         {{ review.class_id }}
-         <p>{{ review.comment|linebreaksbr }}</p>
-       </div>
      </div>
    {% empty %}
      <p>レビューが見つかりませんでした。</p>

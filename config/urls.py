@@ -29,6 +29,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), #ユーザ認証用モデルの呼び出し
     # path('accounts/', include('account.urls')),
     path('account/', include('account.urls')),
+    path('',RedirectView.as_view(url='/review/')),
 ]
 
 if settings.DEBUG:

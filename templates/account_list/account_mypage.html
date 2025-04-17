@@ -161,11 +161,11 @@
                 </table>
                 <div class="changePW">
                     <img src="{% static 'img/GearSix.png' %}" alt="pw">
-                    <a href="{% url '' %}">パスワード変更</a>
+                    <a href="{% url 'account:password_reset' %}">パスワード変更</a>
                 </div>
                 <div class="back">
                     <img src="{% static 'img/return.png' %}" alt="return">
-                    <a href="{% url '' %}">TOPに戻る</a>
+                    <a href="{% url 'review:index' %}">TOPに戻る</a>
                 </div>
             </div>
         </div>
