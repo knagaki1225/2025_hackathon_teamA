@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
     <title>Document</title>
     <style>
         header{
@@ -28,9 +29,10 @@
             color: white;
         }
         .logout{
+            font-size: 16px;
             background: #1C75BC;
             color: white;
-            border-radius: 20px;
+            border-radius: 25px;
             padding: 10px 20px;
             border: none;
         }
@@ -44,15 +46,34 @@
         .global-nav li {
             margin: 25px;
         }
+        .global-nav a {
+            display: flex;
+        }
+        .global-nav a img{
+            padding: 10px;
+        }
         .btn {
             margin: 40px;
             font-size: 20px
+        }
+        .img img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .img{
+            width: 150px;
+            height: 150px;
+            margin-top: -15px;
+            margin-left: 20px;
         }
     </style>
 </head>
 <header>
     <div class="header_list">
-        <h1>その講義、どうだった？</h1>
+        <div class="img">
+            <img src="../img/logo_img.png" alt="">
+        </div>
         <nav>
             <ul class="global-nav">
                 <li><a href=""><img src="../img/Chats.png" class="icon">Review list</a></li>

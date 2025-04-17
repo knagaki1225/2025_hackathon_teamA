@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
-from .models import Review, Class
+from .models import Review, Class, Category
 from django.db.models import Count, Q, Avg
 from .forms import searchForm
 from datetime import datetime, timedelta
@@ -46,9 +46,12 @@ def review_list(request):
     reviews = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
     ).order_by('-good_count')
+
     forms = searchForm(request.GET)
 
-    return render(request, 'home.html', {'reviews': reviews,'searchForm':forms})
+    categories = Category.objects.filter(del_flg=False).prefetch_related('classes')
+    
+    return render(request, 'home.html', {'reviews': reviews,'searchForm':forms,'categories': categories})
 
 class ReviewDetailView(LoginRequiredMixin, generic.DetailView):
     model = Review

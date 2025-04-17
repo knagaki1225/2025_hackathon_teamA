@@ -1,6 +1,6 @@
 {% comment %} アカウント一覧画面 {% endcomment %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +40,17 @@
             margin-right: 30px;
         }
 
+        .img img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .img{
+            width: 150px;
+            height: 90px;
+            margin-left: 20px;
+        }
+
         aside{
             background-color: #5CC0EF;
             height: 100%;
@@ -51,7 +62,7 @@
             margin: 0px 40px;
             color: white;
         }
-        p{
+        .sideber p{
             font-size: 14px;
             margin-top: 20px;
             margin-left: 10px;
@@ -61,11 +72,67 @@
             color: black;
             font-size: 32px;
             margin-left: 50px;
+            margin-top: 20px;
         }
         .userlist_title{
             box-shadow: 4px 4px 4px gray;
-            height: 82px;
+            height: 72px;
+        }
+        
+        .userlist_item{
             width: 100%;
+        }
+
+        .adduser_item p{
+            font-size: 32px;
+        }
+        .adduser_item{
+            margin: 30px;
+        }
+        .adduser_button{
+            font-size: 24px;
+            padding: 0px 50px;
+            border-radius: 20px;
+            background-color: #F9A638;
+            color: #FFFFFF;
+            margin-left: 50px;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr{
+            border: 1.5px solid black;
+            border-left: none;
+            border-right: none;
+        }
+        
+        table td{
+            text-align: center;
+        }
+        table th,td{
+            padding: 10px;
+        }
+        /* 権限色*/
+        .green p{
+            border: 1px solid black;
+            border-radius: 30px;
+            background-color: #36F122;
+            padding: 10px 0px;
+            color: #FFFFFF;
+        }
+        .red p{
+            border: 1px solid black;
+            border-radius: 30px;
+            background-color: #FF0000;
+            padding: 10px 0px;
+            color: #FFFFFF;
+        }
+        
+        .adduser_item{
+            display: flex;
         }
 
         /* 三点リーダー*/
@@ -86,7 +153,9 @@
         <aside class="sideber">
             <div class="widget--sticky">
                 <section>
-                    <h1>Logo</h1>
+                    <div class="img">
+                        <img src="../../img/logo_img.png" alt="">
+                    </div>
                     <p>機能一覧</p>
                     <ul>
                         <li><a href=""><img src="../../img/home.png" alt="home">マイページ</a></li>
@@ -96,8 +165,43 @@
                 </section>
             </div>
         </aside>
-        <div class="userlist_title">
-            <p>User List</p>
+        <div class="userlist_item">
+            <div class="userlist_title">
+                <p>User List</p>
+            </div>
+            <div class="adduser_item">
+                <p>All(xx)</p>
+                <input class="adduser_button" type="submit" value="Add User ＋">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>名前</th>
+                        <th>メールアドレス</th>
+                        <th>学科名</th>
+                        <th>学年</th>
+                        <th>権限</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user01</td>
+                        <td>s.tomaki.sys23@morijyobi.ac.jp</td>
+                        <td>高度情報工学科</td>
+                        <td>3年</td>
+                        <td class="green"><p>利用者</p></td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>admin01</td>
+                        <td>s.tomaki.sys23@morijyobi.ac.jp</td>
+                        <td>高度情報工学科</td>
+                        <td>教師</td>
+                        <td class="red"><p>管理者</p></td>
+                        <td>...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

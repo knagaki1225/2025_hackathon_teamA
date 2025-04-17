@@ -108,57 +108,34 @@
     text-align: center;
   }
 
-  .review-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-left: 8px solid #00aaff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-
-  .review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .review-header img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-
-  {% comment %} .review-rating {
-    color: red;
-    font-weight: bold;
-  } {% endcomment %}
 
 </style>
 
+<div>選択可能科目</div>
 <div class="sidebar">
   {% for category in categories %}
-    <div class="category-block">
-      <div class="category-title" onclick="toggleSubcategories('subcat-{{ category.id }}')">
-        {{ category.name }}
-      </div>
-      <div class="subcategory-list" id="subcat-{{ category.id }}">
-        {% for sub in category.subcategories %}
-          <a href="{% url 'subcategory_detail' sub.name %}" class="subcategory-item">
-            {{ sub.name }}
-          </a>
-        {% endfor %}
-      </div>
+  <div class="category-block">
+    <div
+      class="category-title"
+      onclick="toggleSubcategories('subcat-{{ category.id }}')"
+    >
+      {{ category.category_name }}
     </div>
+    <div class="subcategory-list" id="subcat-{{ category.id }}">
+      {% for sub in category.classes.all %}
+      <a href="#" class="subcategory-item">{{ sub.class_name }}</a>
+      {% endfor %}
+    </div>
+  </div>
   {% endfor %}
 </div>
 
 <script>
-function toggleSubcategories(id) {
-  const subcatDiv = document.getElementById(id);
-  subcatDiv.style.display = (subcatDiv.style.display === "block") ? "none" : "block";
-}
+  function toggleSubcategories(id) {
+    const subcatDiv = document.getElementById(id);
+    subcatDiv.style.display =
+      subcatDiv.style.display === "block" ? "none" : "block";
+  }
 </script>
 
 
@@ -240,5 +217,4 @@ function toggleSubcategories(id) {
    {% empty %}
      <p>レビューが見つかりませんでした。</p>
    {% endfor %}
-
 {% endblock %}
