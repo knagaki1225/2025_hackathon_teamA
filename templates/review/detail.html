@@ -85,24 +85,24 @@
     </div>
   </div>
 
-  <!-- ここからレビューのループ -->
-  <div class="reviews-container" style="display: flex; flex-direction: column; gap: 20px;">
-    {% for review in related_reviews %}
-      <div style="margin: 0 40px; padding: 20px; border: 1px solid #ccc; background-color: #f9f9f9;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div style="display: flex; align-items: center;">
-            <div style="width: 24px; height: 24px; background: black; border-radius: 50%; margin-right: 10px;"></div>
-            <div style="font-size: 14px;">
-              <strong>
-                {% if review.anonymity_flg %}
-                  匿名
-                {% else %}
-                  {{ review.user_id }}
-                {% endif %}
-              </strong>
-              <span style="color: #666; margin-left: 10px;">
-                {{ review.user_id.department }}　{{ review.user_id.grade }}年
-              </span>
+  {% for review, replies in reviews %}
+  <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+
+    <!-- ユーザー情報 -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center;">
+        <div style="width: 24px; height: 24px; background: black; border-radius: 50%; margin-right: 10px;"></div>
+        <div style="font-size: 14px;">
+          <strong>
+            {% if review.anonymity_flg %}
+              匿名
+            {% else %}
+              {{ review.user_id }}
+            {% endif %}
+          </strong>
+          <span style="color: #666; margin-left: 10px;">
+            {{ review.user_id.department }}　{{ review.user_id.grade }}年
+          </span>
             </div>
           </div>
           <div style="font-size: 20px;">…</div>
@@ -125,8 +125,12 @@
     <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
       {{ review.comment|linebreaksbr }}
     </div>
+    {% for reply in replies %}
+      <p>{{ reply.reply }}</p>
+    {% endfor %}
 
   </div>
+
   <div class="coment" style="margin: 20px;">
     <div class="icon" style="display: flex; margin: 10px 100px;">
       <img src="{% static 'img/Ellipse 18.png' %}" alt="home" style="width: 24px; height: 24px; border-radius: 50%; margin: 5px">
