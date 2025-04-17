@@ -57,15 +57,12 @@ def review_list(request):
     return render(request, 'home.html', {'reviews': reviews,'searchForm':forms,'categories': categories})
 
 class ReviewDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Review
+    model = Class
     template_name = 'review/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        review = self.get_object()
-
-        # 対象クラス
-        target_class = review.class_id
+        target_class = self.get_object()
 
         # del_flg=False のレビューのみ取得
         related_reviews = Review.objects.filter(
