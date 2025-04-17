@@ -224,31 +224,58 @@
 </script>
 
 <!-- 検索結果（レビューカード） -->
-<h2>いいねが多いレビュー</h2>
-{% for review in reviews|slice:":3" %}
-  <div class="review-card">
-    <div class="review-header">
-      <div>
-        <div>{% if review.anonymity_flg %}匿名{% else %}{{ review.user_id }}{% endif %} | {{ review.create_at|date:"Y年m月d日" }}</div>
-        <span style="color: red; font-size: 20px;">
-        {% for i in "12345" %}
-          {% if i <= review.review_num|floatformat:0 %}
-            ★
-          {% else %}
-            ☆
-          {% endif %}
-        {% endfor %}
-        <div class="review-rating">{{ review.review_num }}</div>
-      </span>
+ {% if reviews %}
+  <h2>いいねが多いレビュー</h2>
+  {% for review, good_count in reviews|slice:":3" %}
+    <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+        <strong style=" font-size:25px;">{{ review.class_id }}</strong>
+        <!-- ユーザー情報 -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center;">
+            <div style="width: 24px; height: 24px; background: black; border-radius: 50%; margin-right: 10px;"></div>
+            <div style="font-size: 14px;">
+              <strong>
+                {% if review.anonymity_flg %}
+                  匿名
+                {% else %}
+                  {{ review.user_id }}
+                {% endif %}
+              </strong>
+              <span style="color: #666; margin-left: 10px;">
+                {% if not review.anonymity_flg %}
+                  {{ review.user_id.department_id }}　{{ review.user_id.grade }}年
+                {% endif %}
+              </span>
+              <span style="font-size:18px">
+                -いいね：{{ good_count }}
+              </span>
+            </div>
+          </div>
+          <div style="font-size: 20px;">…</div>
+        </div>
+
+        <div style="margin-top: 10px; background: #4FC3F7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: 20px;">
+          <div style="color: red;">
+            {% for i in "12345" %}
+              {% if forloop.counter <= review.review_num %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div style="color: black;">{{ review.review_num }}</div>
+        </div>
+
+        <!-- レビューコメント -->
+        {% if review.comment %}
+          <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
+            {{ review.comment|linebreaksbr }}
+          </div>
+        {% endif %}
       </div>
-    </div>
-    <div>
-      {{ review.class_id }}
-      <p>{{ review.comment|linebreaksbr }}</p>
-    </div>
-  </form>
-     </div>
-   {% empty %}
-     <p>レビューが見つかりませんでした。</p>
-   {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+  </div>
 {% endblock %}

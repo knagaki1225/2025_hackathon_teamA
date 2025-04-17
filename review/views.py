@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.views import generic    # 汎用ビューのインポート
-from .models import Review, Class, Category, Reply
+from .models import Review, Class, Category, Reply, Good
 from django.db.models import Count, Q, Avg
 from .forms import searchForm
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views import View
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
+from itertools import islice
 
 def search(request):
     result = None
@@ -46,9 +46,16 @@ def search(request):
 
 @login_required
 def review_list(request):
-    reviews = Review.objects.annotate(
+    tmps = Review.objects.annotate(
         good_count=Count('good', filter=Q(good__del_flg=False))
     ).order_by('-good_count')
+
+    reviews = []
+
+    for review in islice(tmps, 3):
+        good_count = Good.objects.filter(review_id = review.id, del_flg = False).count()
+        tmp = [review, good_count]
+        reviews.append(tmp)
 
     forms = searchForm(request.GET)
 
