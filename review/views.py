@@ -7,6 +7,9 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+from django.views import View
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
 
 def search(request):
     result = None
@@ -78,3 +81,15 @@ class ReviewDetailView(generic.DetailView):
         context['avg_review_num'] = avg_review
 
         return context
+
+@method_decorator(login_required, name='dispatch')
+class ReviewCreateView(View):
+    def post(self, request, class_id):
+        Review.objects.create(
+            user_id=request.user,
+            class_id=Class.objects.get(id=class_id),
+            review_num=request.POST.get('review_num'),
+            comment=request.POST.get('comment', ''),
+            anonymity_flg=bool(request.POST.get('anonymity_flg')),
+        )
+        return redirect('review:detailReview', pk=class_id)
