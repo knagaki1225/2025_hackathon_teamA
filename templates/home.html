@@ -209,7 +209,7 @@
 
    <!-- 検索結果（レビューカード） -->
    <h2>いいねが多いレビュー</h2>
-   {% for review in reviews %}
+   {% for review in reviews|slice:":3" %}
      <div class="review-card">
        <div class="review-header">
           <img src="{% static 'img/login_img.png' %}" alt="User">

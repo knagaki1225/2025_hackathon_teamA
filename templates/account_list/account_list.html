@@ -201,6 +201,26 @@
                         <td class="red"><p>管理者</p></td>
                         <td>...</td>
                     </tr>
+                    {% for user in object_list %}
+                        <tr>
+                            <td>{{ user.last_name }} {{ user.first_name }} </td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.department_id }}</td>
+                            <td>
+                                {% if user.department_id.id == 3 %}
+                                    教員
+                                {% else %}
+                                    {{ user.grade }}
+                                {% endif %}
+                            </td>
+                            {% if user.is_staff %}
+                                <td class="red"><p>管理者</p></td>
+                            {% else %}
+                                <td class="green"><p>利用者</p></td>
+                            {% endif %}
+                            <td>...</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

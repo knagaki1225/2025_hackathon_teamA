@@ -84,8 +84,7 @@
         <img src="{% static 'img/logo_img.png' %}" alt="logo">
         <nav>
             <ul class="global-nav">
-                <li><a href=""><img src="{% static 'img/Vector.png' %}" alt="log" class="icon">Review list</a></li>
-                <li><a href=""><img src="{% static 'img/user.png' %}"  alt="log" class="icon">Mypage</a></li>
+                <li><a href="{% url 'account:accountsDetail' pk=user.id %}"><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
             </ul>
         </nav>
     </div>
