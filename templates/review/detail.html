@@ -9,8 +9,7 @@
   <div style="margin: 40px; font-family: sans-serif;">
 
     <div style="font-size: 28px; font-weight: bold;">
-      <!-- {{ subject.name }} -->
-        {{ class_info.class_name }}
+      {{ class_info.class_name }}
     </div>
 
     <div style="background: #4FC3F7; color: black; padding: 10px 20px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 18px;">
@@ -31,31 +30,25 @@
 
     <div style="background: #4FC3F7; color: black; padding: 10px 20px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 18px;">
       <div>担当教員</div>
-      <!-- <div>{{ subject.teacher }}</div> -->
-       {{ class_info.user_id }}
+      {{ class_info.user_id }}
     </div>
 
     <div style="margin-top: 20px;">
       <h3 style="font-weight: bold; font-size: 18px;">授業概要</h3>
       <ul style="padding-left: 20px;">
-        <!-- {% for line in subject.overview.splitlines %}
-          <li>{{ line }}</li>
-        {% endfor %} -->
         {{ class.comment }}
       </ul>
     </div>
 
     <hr style="margin: 40px 0; border: none; border-top: 5px solid #ccc;">
-
   </div>
-  
-<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; margin-bottom: 20px;">
-  <div style="font-size: 28px; font-weight: bold; margin: 40px;">レビュー</div>
 
-  {% if request.user.department_id.id != 2 and request.user.department_id.id != 3 %}
-    <!-- レビュー投稿ボタン -->
-    <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
-  {% endif %}
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; margin-bottom: 20px;">
+    <div style="font-size: 28px; font-weight: bold; margin: 40px;">レビュー</div>
+
+    {% if request.user.department_id.id != 2 and request.user.department_id.id != 3 %}
+      <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
+    {% endif %}
 
   <!-- ポップアップ本体 -->
   <div id="reviewPopup" class="popup">
@@ -69,28 +62,28 @@
           {% endfor %}
         </div>
         <input type="hidden" name="review_num" id="rating" value="3">
-        <select onchange="setRating(this.value)">
+        {% comment %} <select onchange="setRating(this.value)">
           {% for i in "12345" %}
           <option value="{{ forloop.counter }}" {% if forloop.counter == 3 %}selected{% endif %}>{{ forloop.counter }}</option>
           {% endfor %}
-        </select>
+        </select> {% endcomment %}
 
-        <label for="comment">コメント（任意）</label>
-        <textarea name="comment" id="comment" rows="4" cols="40"></textarea>
+          <label for="comment">コメント（任意）</label>
+          <textarea name="comment" id="comment" rows="4" cols="40"></textarea>
 
-        <div style="margin-top: 10px;">
-          <label class="switch">
-            <input type="checkbox" name="anonymity_flg" checked>
-            <span class="slider"></span>
-          </label>
-          匿名
-        </div>
+          <div style="margin-top: 10px;">
+            <label class="switch">
+              <input type="checkbox" name="anonymity_flg" checked>
+              <span class="slider"></span>
+            </label>
+            匿名
+          </div>
 
-        <button type="submit" class="submit-btn">投稿する</button>
-      </form>
+          <button type="submit" class="submit-btn">投稿する</button>
+        </form>
+      </div>
     </div>
   </div>
-
 
   {% for review, replies in reviews %}
   <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
@@ -110,24 +103,23 @@
           <span style="color: #666; margin-left: 10px;">
             {{ review.user_id.department }}　{{ review.user_id.grade }}年
           </span>
+            </div>
+          </div>
+          <div style="font-size: 20px;">…</div>
         </div>
-      </div>
-      <div style="font-size: 20px;">…</div>
-    </div>
 
-    <!-- レヴュー評価 -->
-    <div style="margin-top: 10px; background: #4FC3F7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: 20px; width: fit-content;">
-      <div style="color: red;">
-        {% for i in "12345" %}
-          {% if forloop.counter <= review.review_num %}
-            ★
-          {% else %}
-            ☆
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div style="color: black;">{{ review.review_num }}</div>
-    </div>
+        <div style="margin-top: 10px; background: #4FC3F7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: 20px; width: fit-content; margin-left: 30px;">
+          <div style="color: red;">
+            {% for i in "12345" %}
+              {% if forloop.counter <= review.review_num %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div style="color: black;">{{ review.review_num }}</div>
+        </div>
 
     <!-- レビューコメント -->
     <div style="margin-top: 10px; border: 1px solid #ccc; padding: 12px; background: white;">
@@ -138,7 +130,19 @@
     {% endfor %}
 
   </div>
-  {% endfor %}
+
+  <div class="coment" style="margin: 20px;">
+    <div class="icon" style="display: flex; margin: 10px 100px;">
+      <img src="{% static 'img/Ellipse 18.png' %}" alt="home" style="width: 24px; height: 24px; border-radius: 50%; margin: 5px">
+      <p style="font-size: 16px; margin: 10px">sasaki</p>
+      <p style="font-size: 16px; margin: 10px">総合システム工学科2年</p>
+      <div style="font-size: 20px; margin-left: 570px;">…</div>
+    </div>
+    <div class="text" style="border: 1px solid black; border-radius: 30px; margin: 0 100px;">
+      <p style="padding: 10px;">texttexttexttexttexttexttexttexttexttexttext</p>
+    </div>
+  </div>
+{% endfor %}
 
 </div>
 {% endblock %}

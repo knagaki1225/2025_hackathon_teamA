@@ -4,8 +4,8 @@
 
 {% block content %}
 
-
 <style>
+  /* 既存のスタイルはそのまま */
   .sidebar {
     width: 250px;
     background-color: #f4f4f4;
@@ -49,7 +49,7 @@
     padding: 30px;
     border-radius: 20px;
     max-width: 650px;
-    margin: 0 60px 60px auto
+    margin: 0;
   }
 
   .search-container input[type="text"] {
@@ -108,7 +108,27 @@
     text-align: center;
   }
 
-  .review-header{
+  /* 新しく追加するスタイル */
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+  
+  .left-sidebar {
+    flex: 0 0 auto;
+    margin-top: 50px;
+  }
+  
+  .right-content {
+    flex: 1;
+    margin-top: 70px;
+    margin-left: 150px;
+  }
+  
+    .review-header{
     display: flex;
   }
 
@@ -121,31 +141,75 @@
     width: 100%;
     height: 481%;
   }
-
-
 </style>
 
 <div class="top">
   <img src="{% static "img/Rectangle 248.png" %}" alt="img">
 </div>
 
-<div>選択可能科目</div>
-<div class="sidebar">
-  {% for category in categories %}
-  <div class="category-block">
-    <div
-      class="category-title"
-      onclick="toggleSubcategories('subcat-{{ category.id }}')"
-    >
-      {{ category.category_name }}
-    </div>
-    <div class="subcategory-list" id="subcat-{{ category.id }}">
-      {% for sub in category.classes.all %}
-      <a href="{% url 'review:detailReview' sub.id %}" class="subcategory-item">{{ sub.class_name }}</a>
-      {% endfor %}
-    </div>
+
+<div class="content-container">
+  <div class="left-sidebar">
+    <div>選択可能科目</div>
+    <div class="sidebar">
+      {% for category in categories %}
+      <div class="category-block">
+        <div
+          class="category-title"
+          onclick="toggleSubcategories('subcat-{{ category.id }}')"
+        >
+          {{ category.category_name }}
+        </div>
+        <div class="subcategory-list" id="subcat-{{ category.id }}">
+          {% for sub in category.classes.all %}
+          <a href="{% url 'review:detailReview' sub.id %}" class="subcategory-item">{{ sub.class_name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+  <div class="right-content">
+    <form method="get" class="search-container" action="{% url 'review:search' %}" >
+      <!-- キーワード検索 -->
+      {{ searchForm.words }}
+
+      <!-- 総合評価 -->
+      <div class="filter-group">
+        <label>総合評価</label>
+        {% for form in searchForm.review_num %}
+          <label>
+            {{ form.tag }}
+            <span class="option">{{form.choice_label}}</span>
+          </label>
+        {% endfor %}
+      </div>
+
+      <!-- 投稿日 -->
+      <div class="filter-group">
+        <label>投稿日</label>
+        {% for form in searchForm.result_date %}
+          <label>
+            {{ form.tag }}
+            <span class="option">{{form.choice_label}}</span>
+          </label>
+        {% endfor %}
+      </div>
+
+      <!-- その他 -->
+      <div class="filter-group">
+        <label>その他</label>
+          {% for form in searchForm.good %}
+          <label>
+            {{ form.tag }}
+            <span class="option">{{form.choice_label}}</span>
+          </label>
+        {% endfor %}
+      </div>
+
+      <div class="button">
+        <input type="submit" class="search-button" value="検索">
+      </div>
+    </form>
   </div>
-  {% endfor %}
 </div>
 
 <script>
@@ -156,54 +220,28 @@
   }
 </script>
 
-
-  <form method="get" class="search-container" action="{% url 'review:search' %}" >
-    <!-- キーワード検索 -->
-    {% comment %} <input type="text" name="keyword" placeholder="Search" value="{{ form.keyword.value|default_if_none:'' }}"> {% endcomment %}
-    {{ searchForm.words }}
-
-    <!-- 総合評価 -->
-    <div class="filter-group">
-      <label>総合評価</label>
-      {% for form in searchForm.review_num %}
-        <label>
-          {{ form.tag }}
-          <span class="option">{{form.choice_label}}</span>
-        </label>
-      {% endfor %}
-
-      {% comment %} <label>
-        <input type="radio" name="rating" value="" >
-        <span class="option">あ</span>
-      </label> {% endcomment %}
-
-      
+<!-- 検索結果（レビューカード） -->
+<h2>いいねが多いレビュー</h2>
+{% for review in reviews|slice:":3" %}
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div>{% if review.anonymity_flg %}匿名{% else %}{{ review.user_id }}{% endif %} | {{ review.create_at|date:"Y年m月d日" }}</div>
+        <span style="color: red; font-size: 20px;">
+        {% for i in "12345" %}
+          {% if i <= review.review_num|floatformat:0 %}
+            ★
+          {% else %}
+            ☆
+          {% endif %}
+        {% endfor %}
+        <div class="review-rating">{{ review.review_num }}</div>
+      </span>
+      </div>
     </div>
-
-    <!-- 投稿日 -->
-    <div class="filter-group">
-      <label>投稿日</label>
-      {% for form in searchForm.result_date %}
-        <label>
-          {{ form.tag }}
-          <span class="option">{{form.choice_label}}</span>
-        </label>
-      {% endfor %}
-    </div>
-
-    <!-- その他 -->
-    <div class="filter-group">
-      <label>その他</label>
-        {% for form in searchForm.good %}
-        <label>
-          {{ form.tag }}
-          <span class="option">{{form.choice_label}}</span>
-        </label>
-      {% endfor %}
-    </div>
-
-    <div class="button">
-      <input type="submit" class="search-button" value="検索">
+    <div>
+      {{ review.class_id }}
+      <p>{{ review.comment|linebreaksbr }}</p>
     </div>
   </form>
 

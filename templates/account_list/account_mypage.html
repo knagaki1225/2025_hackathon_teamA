@@ -22,9 +22,9 @@
             margin-top: 30px;
             background-color: #5CC0EF;
             width: 362px;
-            height: 860px;
-            border-radius: 20px;
-            padding: 50px;
+            height: 875px;
+            border-radius: 40px;
+            padding: 20px;
         }
         .icon img {
             width: 256px;
@@ -34,7 +34,7 @@
 
         .background p{
             background-color: #F9A638;
-            font-size: 32px;
+            font-size: 24px;
         }
         .icon_items hr{
             margin-top: 50px;
@@ -43,7 +43,7 @@
             font-size: 24px;
         }
         .changePW a{
-            font-size: 15px;
+            font-size: 20px;
             text-decoration: none;
             color: white;
             margin-top: 3px;
@@ -52,6 +52,18 @@
             margin-top: 100px;
             display: flex;
         }
+        .back a{
+            font-size: 20px;
+            text-decoration: none;
+            color: white;
+            margin-top: 3px;
+            margin-left: 8px;
+        }
+        .back {
+            margin-top: 10px;
+            display: flex;
+        }
+
         .user_info table{
             width: 100%;
             margin-top: 50px;
@@ -63,7 +75,7 @@
         }
         .user_info table td{
             text-align: center;
-            font-size: 32px;
+            font-size: 24px;
         }
         .user_info table th,td{
             padding: 20px 10px;
@@ -74,9 +86,9 @@
         .basic_info{
             width: 740px;
             height: 300px;
-            margin: 0px 50px 50px 50px;
+            margin: 0px 0px 55px 50px;
             border: 2px solid black;
-            border-radius: 30px;
+            border-radius: 40px;
             padding: 30px;
         }
         h2 {
@@ -87,7 +99,7 @@
             font-weight: normal;
         }
         .basic_info td h2{
-            font-size: 32px;
+            font-size: 24px;
         }
         .basic_info td p{
             font-size: 24px;
@@ -96,9 +108,9 @@
         .mail_items{
             width: 740px;
             height: 250px;
-            margin: 0px 50px 50px 50px;
+            margin: 0px 0px 55px 50px;
             border: 2px solid black;
-            border-radius: 30px;
+            border-radius: 40px;
             padding: 30px;
         }
         .mail_items table{
@@ -107,9 +119,9 @@
         .note_1{
             width: 380px;
             height: 240px;
-            margin: 0px 50px 50px 50px;
+            margin: 0px 0px 50px 50px;
             border: 2px solid black;
-            border-radius: 30px;
+            border-radius: 40px;
             padding: 30px;
         }
         .note_1 h2{
@@ -148,8 +160,12 @@
                     </tr>
                 </table>
                 <div class="changePW">
-                    <img src="{% static 'img/' %}" alt="">
-                    <a href="">パスワード変更</a>
+                    <img src="{% static 'img/GearSix.png' %}" alt="pw">
+                    <a href="{% url '' %}">パスワード変更</a>
+                </div>
+                <div class="back">
+                    <img src="{% static 'img/return.png' %}" alt="return">
+                    <a href="{% url '' %}">TOPに戻る</a>
                 </div>
             </div>
         </div>
@@ -185,7 +201,7 @@
                     <tr>
                         <th><img src="{% static 'img/course_img.png' %}" alt="career"></th>
                         <td><h2>進路（業界、業種）</h2></td>
-                        <td>{{ user.career }}</p></td>
+                        <td><p>{{ user.career }}</p></td>
                     </tr>
                 </table>
             </div>
