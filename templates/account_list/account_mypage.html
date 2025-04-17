@@ -1,4 +1,5 @@
 {% comment %} アカウント閲覧画面 {% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,7 +115,7 @@
     <div class="all">
         <div class="icon_items">
             <div class="icon">
-                <img src="{{ user.icon_url.url }}" alt="">
+                <img src="{% static 'img/user_icon_img.png' %}" alt="icon">
             </div>
             <hr color="white">
             <div class="user_info">
@@ -141,7 +142,7 @@
                     </tr>
                 </table>
                 <div class="changePW">
-                    <img src="../../img/GearSix.png" alt="">
+                    <img src="{% static 'img/' %}" alt="">
                     <a href="">パスワード変更</a>
                 </div>
             </div>
@@ -152,17 +153,17 @@
                 <hr>
                 <table>
                     <tr>
-                        <th><img src="../../img/subject_img.png" alt=""></th>
+                        <th><img src="{% static 'img/subject_img.png' %}" alt="sub"></th>
                         <td><h2>学科</h2></td>
                         <td><p>{{ user.department_id }}</p></td>
 
-                        <th class="language"><img src="language_img.png" alt=""></th>
+                        <th class="language"><img src="{% static 'img/language_img.png' %}" alt="lan"></th>
                         <td><h2>得意言語</h2></td>
                         <td><p>{{ user.language }}</p></td>
                         
                     </tr>
                     <tr>
-                        <th><img src="../../img/grade_img.png" alt=""></th>
+                        <th><img src="{% static 'img/grade_img.png' %}" alt="user"></th>
                         <td><h2>学年</h2></td>
                         <td><p>{{ user.grade }}</p></td>
                     </tr>
@@ -171,12 +172,12 @@
             <div class="mail_items">
                 <table>
                     <tr>
-                        <th><img src="../../img/mail_img.png" alt=""></th>
+                        <th><img src="{% static 'img/mail_img.png' %}" alt="mail"></th>
                         <td><h2>メールアドレス</h2></td>
                         <td><p>{{ user.username }}</p></td>
                     </tr>
                     <tr>
-                        <th><img src="../../img/course_img.png" alt=""></th>
+                        <th><img src="{% static 'img/course_img.png' %}" alt="career"></th>
                         <td><h2>進路（業界、業種）</h2></td>
                         <td>{{ user.career }}</p></td>
                     </tr>

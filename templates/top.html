@@ -18,8 +18,7 @@
             justify-content: space-between;
         }
         header h1 {
-            margin: 20px 40px;
-            font-size: 50px; 
+            font-size: 35px; 
         }
         .header_list{
             display: flex;
@@ -35,16 +34,24 @@
             border-radius: 25px;
             padding: 10px 20px;
             border: none;
+            margin: 0 0 0 30px;
+        }
+        .admin{
+            background: #F9A638;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: none;
         }
         .global-nav {
             display: flex;
             list-style: none;
-            margin-top: 10px;
+            margin: 18px; 
             font-size: 32px;
-            padding: 0px;
         }
         .global-nav li {
-            margin: 25px;
+            margin: 20px;
+            font-size: 23px; 
         }
         .global-nav a {
             display: flex;
@@ -53,8 +60,10 @@
             padding: 10px;
         }
         .btn {
-            margin: 40px;
-            font-size: 20px
+            display: flex;
+            margin: 35px;
+            font-size: 15px
+
         }
         .img img{
             width: 100%;
@@ -71,17 +80,17 @@
 </head>
 <header>
     <div class="header_list">
-        <div class="img">
-            <img src="../img/logo_img.png" alt="">
-        </div>
+        {% load static%}
+        <img src="{% static 'img/logo_img.png' %}" alt="logo">
         <nav>
             <ul class="global-nav">
-                <li><a href=""><img src="../img/Chats.png" class="icon">Review list</a></li>
-                <li><a href=""><img src="../img/user.png" alt="" class="icon">Mypage</a></li>
+                <li><a href=""><img src="{% static 'img/Vector.png' %}" alt="log" class="icon">Review list</a></li>
+                <li><a href=""><img src="{% static 'img/user.png' %}"  alt="log" class="icon">Mypage</a></li>
             </ul>
         </nav>
     </div>
     <div class="btn">
+        <a href="{% url 'logout' %}"><button class="admin">admin</button></a>
         <a href="{% url 'logout' %}"><button class="logout">logout</button></a>
 </header>
 <body>
