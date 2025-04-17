@@ -6,6 +6,7 @@ from .forms import searchForm
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def search(request):
@@ -52,7 +53,7 @@ def review_list(request):
     
     return render(request, 'home.html', {'reviews': reviews,'searchForm':forms,'categories': categories})
 
-class ReviewDetailView(generic.DetailView):
+class ReviewDetailView(LoginRequiredMixin, generic.DetailView):
     model = Review
     template_name = 'review/detail.html'
 

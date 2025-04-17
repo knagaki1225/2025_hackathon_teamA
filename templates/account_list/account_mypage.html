@@ -1,3 +1,4 @@
+{% comment %} アカウント閲覧画面 {% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,22 +114,30 @@
     <div class="all">
         <div class="icon_items">
             <div class="icon">
-                <img src="../../img/user_icon_img.png" alt="">
+                <img src="{{ user.icon_url.url }}" alt="">
             </div>
             <hr color="white">
             <div class="user_info">
                 <table>
                     <tr>
                         <th>権限</th>
-                        <td class="background"><p>利用者</p></td>
+                        <td class="background">
+                            <p>
+                                {% if user.admin_flg %}
+                                    管理者
+                                {% else %}
+                                    利用者
+                                {% endif %}
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <th>レビュー数</th>
-                        <td>52件</td>
+                        <td>{{ review }}</td>
                     </tr>
                     <tr>
                         <th>いいね数</th>
-                        <td>100</td>
+                        <td>{{ good }}</td>
                     </tr>
                 </table>
                 <div class="changePW">
@@ -139,23 +148,23 @@
         </div>
         <div class="info_items">
             <div class="basic_info">
-                <h1>金野 宇晃</h1>
+                <h1>{{ user }}</h1>
                 <hr>
                 <table>
                     <tr>
                         <th><img src="../../img/subject_img.png" alt=""></th>
                         <td><h2>学科</h2></td>
-                        <td><p>情報システム科</p></td>
+                        <td><p>{{ user.department_id }}</p></td>
 
                         <th class="language"><img src="language_img.png" alt=""></th>
                         <td><h2>得意言語</h2></td>
-                        <td><p>Java</p></td>
+                        <td><p>{{ user.language }}</p></td>
                         
                     </tr>
                     <tr>
                         <th><img src="../../img/grade_img.png" alt=""></th>
                         <td><h2>学年</h2></td>
-                        <td><p>8年</p></td>
+                        <td><p>{{ user.grade }}</p></td>
                     </tr>
                 </table>
             </div>
@@ -164,12 +173,12 @@
                     <tr>
                         <th><img src="../../img/mail_img.png" alt=""></th>
                         <td><h2>メールアドレス</h2></td>
-                        <td><p>test_user@outlook.com</p></td>
+                        <td><p>{{ user.username }}</p></td>
                     </tr>
                     <tr>
                         <th><img src="../../img/course_img.png" alt=""></th>
                         <td><h2>進路（業界、業種）</h2></td>
-                        <td><p>富士ソフト<br>インフラエンジニア</p></td>
+                        <td>{{ user.career }}</p></td>
                     </tr>
                 </table>
             </div>
@@ -177,8 +186,7 @@
                 <div class="note_1">
                     <h2>備考</h2>
                     <p>
-                        github <br>
-                        https://github.com/sample-user/demo-repo
+                        {{ user.my_ditail}}
                     </p>
                 </div>
                 <div class="note_2"></div>
