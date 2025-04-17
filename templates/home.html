@@ -123,7 +123,7 @@
     </div>
     <div class="subcategory-list" id="subcat-{{ category.id }}">
       {% for sub in category.classes.all %}
-      <a href="#" class="subcategory-item">{{ sub.class_name }}</a>
+      <a href="{% url 'review:detailReview' sub.id %}" class="subcategory-item">{{ sub.class_name }}</a>
       {% endfor %}
     </div>
   </div>
