@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block content %}
+{% csrf_token %}
   <link rel="stylesheet" href="{% static 'review/detail.css' %}">
   <script src="{% static 'review/detail.js' %}"></script>
   <div style="margin: 40px; font-family: sans-serif;">
@@ -120,7 +121,10 @@
             {% endif %}
           {% endfor %}
         </div>
-        <div style="color: black;">{{ review.review_num }}</div>
+        <button class="like-button" data-review-id="{{ review.id }}" data-url="{% url 'review:toggle_good' %}">
+          <span class="heart-icon"></span>
+          <span class="like-count">{{ good_count }}</span>
+        </button>
       </div>
 
       <!-- レビューコメント -->

@@ -40,6 +40,7 @@ class AllView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['departments'] = Department.objects.filter(del_flg=False)  # ← ここで学科一覧を追加
+        context['user_count'] = self.get_queryset().count()
         return context
 
 def AccountDetail(request, pk):
