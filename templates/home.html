@@ -222,10 +222,11 @@
   }
 </script>
 
- {% if reviews %}
-  <h2>いいねが多いレビュー</h2>
-  {% for review, good_count in reviews|slice:":3" %}
-    <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+  {% if reviews %}
+  <div style="max-width: 650px; margin: 0 auto 0 300px;">
+    <h2>いいねが多いレビュー</h2>
+    {% for review, good_count in reviews|slice:":3" %}
+      <div style="margin: 10px 0;  padding-left: 100px;">
         <strong style=" font-size:25px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -273,11 +274,13 @@
         {% endif %}
       </div>
     {% endfor %}
-  {% endif %}
-  {% if results %}
+  </div>
+{% endif %}
+{% if results %}
+  <div style="max-width: 650px; margin: 0 auto 0 300px;">
     <h2 id="result">検索結果</h2>
     {% for review, good_count in results %}
-      <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+      <div style="margin: 10px 0; border: 1px solid #ccc; padding-bottom: 20px;">
         <strong style=" font-size:25px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -330,7 +333,8 @@
         location.hash = '#result';
       });
     </script>
-  {% endif %}
+  </div>
+{% endif %}
 
   </div>
 {% endblock %}
