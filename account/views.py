@@ -4,8 +4,7 @@ from django.views import View
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
-from .forms import ImageUploadForm
+from .forms import CustomUserCreationForm, ImageUploadForm, AccountForm
 from django.contrib.auth import get_user_model
 from .models import User
 from django.contrib.auth import views as auth_views
@@ -107,14 +106,13 @@ class CustomPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 @login_required
 def edit_user(request):
+    user = request.user
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        department_id = request.POST.get('department_id')
-        admin_flg = request.POST.get('admin_flg') == 'true'
+        form = AccountForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('review:index')
+    else:
+        form = AccountForm(instance=user)
 
-        user = get_object_or_404(User, id=user_id)
-        user.department_id_id = department_id
-        user.admin_flg = admin_flg
-        user.save()
-
-        return redirect('account:all')  # ユーザー一覧に戻す
+    return render(request, 'account_list/ACedit_user.html', {'form': form})

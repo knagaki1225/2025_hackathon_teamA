@@ -13,3 +13,8 @@ class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['icon_url']  # ユーザーのアイコンのみをアップロード対象にする
+
+class AccountForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['language', 'career', 'my_ditail']
