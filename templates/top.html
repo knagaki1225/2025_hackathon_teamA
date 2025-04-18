@@ -91,7 +91,9 @@
         </nav>
     </div>
     <div class="btn">
-        <a href="{% url 'account:all' %}"><button class="admin">admin</button></a>
+        {% if request.user.admin_flg %}
+            <a href="{% url 'account:all' %}"><button class="admin">admin</button></a>
+        {% endif %}
         <a href="{% url 'logout' %}"><button class="logout">logout</button></a>
 </header>
 <body>
