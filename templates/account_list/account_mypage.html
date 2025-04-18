@@ -187,7 +187,12 @@
                     <tr>
                         <th><img src="{% static 'img/grade_img.png' %}" alt="user"></th>
                         <td><h2>学年</h2></td>
-                        <td><p>{{ user.grade }}</p></td>
+                        {% if request.user.department_id.id == 3 %}
+                            <td><p>教員</p></td>
+                        {% else %}
+                            <td><p>{{ user.grade }}</p></td>
+                        {% endif %}
+                        
                     </tr>
                 </table>
             </div>
