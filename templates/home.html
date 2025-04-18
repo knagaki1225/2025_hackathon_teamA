@@ -6,12 +6,17 @@
   /* 既存のスタイルはそのまま */
   .sidebar {
     width: 250px;
-    background-color: #f4f4f4;
+    background-color: #CEEAFA;
     padding: 15px;
     border: 1px solid #ddd;
     height: 100%; /* ← 左サイドバーに合わせる */
     box-sizing: border-box;
   }
+
+  .title{
+    border-bottom: 1px solid #0077c8;
+  }
+
   .category-block {
     margin-bottom: 20px;
   }
@@ -196,14 +201,14 @@
 {% csrf_token %}
 <script src="{% static 'review/detail.js' %}"></script>
 <div class="top">
-  <img src="{% static "img/Rectangle 248.png" %}" alt="img">
+  <img src="{% static "img/header_img.png" %}" alt="img">
 </div>
 
 
 <div class="content-container">
   <div class="left-sidebar">
-    <div>選択可能科目</div>
     <div class="sidebar">
+      <div class="title">選択可能科目</div>
       {% for category in categories %}
       <div class="category-block">
         <div
@@ -323,7 +328,7 @@
   </div>
 {% endif %}
 {% if results %}
-  <div style="max-width: 650px; margin: 0 auto 0 300px;">
+  <div style="max-width: 650px; margin-top:20px">
     <h2 id="result">検索結果</h2>
     {% for review, good_count in results %}
       <div style="margin: 10px 0; border: 1px solid #ccc; padding-bottom: 20px;">
