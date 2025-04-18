@@ -6,10 +6,9 @@
   /* 既存のスタイルはそのまま */
   .sidebar {
     width: 250px;
-    background-color: #f4f4f4;
+    background-color: #CEEAFA;
     padding: 15px;
-    border: 1px solid #ddd;
-    height: 100%; /* ← 左サイドバーに合わせる */
+    height: 100%;
     box-sizing: border-box;
   }
   .category-block {
@@ -119,7 +118,8 @@
   .left-sidebar {
     flex: 0 0 auto;
     margin-top: 50px;
-    min-height: 100vh; /* ← ページの高さに応じて縦に伸ばす */
+    min-height: 100vh;
+    background-color: #CEEAFA;
   }
   
   .right-content {
@@ -191,6 +191,12 @@
   transform: scale(1.1);
 }
 
+.sidebar-text{
+  border: 1px solid #0077c8;
+
+}
+
+
 {% endblock %}
 {% block content %}
 {% csrf_token %}
@@ -202,14 +208,15 @@
 
 <div class="content-container">
   <div class="left-sidebar">
-    <div>選択可能科目</div>
+    <div class="sidebar-text">
+    <div style="margin-left: 30%;">選択可能科目</div>
+    </div>
     <div class="sidebar">
       {% for category in categories %}
-      <div class="category-block">
+      <div class="category-block" >
         <div
           class="category-title"
           onclick="toggleSubcategories('subcat-{{ category.id }}')"
-          style="background-color: F2F7FA;"
         >
           {{ category.category_name }}
         </div>
@@ -323,11 +330,11 @@
   </div>
 {% endif %}
 {% if results %}
-  <div style="max-width: 650px; margin: 0 auto 0 300px;">
-    <h2 id="result">検索結果</h2>
+  <div style="max-width: 650px; margin: 0;">
+    <h2 id="result" style="margin-left: 0; margin-top: 120px;">検索結果</h2>
     {% for review, good_count in results %}
-      <div style="margin: 10px 0; border: 1px solid #ccc; padding-bottom: 20px;">
-        <strong style=" font-size:25px;">{{ review.class_id }}</strong>
+      <div style="margin: 10px 0; padding-bottom: 20px;">
+        <strong style=" font-size:15px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="display: flex; align-items: center;">
