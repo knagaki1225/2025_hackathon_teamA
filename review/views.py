@@ -40,6 +40,7 @@ def search(request):
         
         if result_date:
             now = timezone.now()
+            result_date = int(result_date)
             ago = now - timedelta(days=result_date)
             results = results.filter(create_at__gte=ago)
         
