@@ -11,6 +11,9 @@ from django.views import View
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from itertools import islice
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
 
 def search(request):
     result = None
@@ -117,3 +120,30 @@ class ReviewCreateView(View):
             anonymity_flg=bool(request.POST.get('anonymity_flg')),
         )
         return redirect('review:detailReview', pk=class_id)
+
+@require_POST
+@login_required
+def toggle_good(request):
+    review_id = request.POST.get("review_id")
+    review = get_object_or_404(Review, id=review_id)
+
+    # 既に存在するか確認（del_flg=False のもの）
+    good = Good.objects.filter(user_id=request.user, review_id=review, del_flg=False).first()
+
+    if good:
+        # 既に「いいね」してる → del_flg を True に
+        good.del_flg = True
+        good.save()
+        liked = False
+    else:
+        # まだ「いいね」してない → 新しく追加
+        Good.objects.create(user_id=request.user, review_id=review)
+        liked = True
+
+    # 最新のいいね数をカウント（del_flg=False のみ）
+    like_count = Good.objects.filter(review_id=review, del_flg=False).count()
+
+    return JsonResponse({
+        "liked": liked,
+        "like_count": like_count,
+    })

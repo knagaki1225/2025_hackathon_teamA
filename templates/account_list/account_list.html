@@ -160,9 +160,9 @@
                     </div>
                     <p>機能一覧</p>
                     <ul>
-                        <li><a href="{% url "account:all" %}"><img src="{% static 'img/home.png' %}" alt="home">マイページ</a></li>
-                        <li><a href="#"><img src="{% static 'img/user.png' %}" alt="user" class="user_img">ユーザーリスト</a></li>
-                        <li><a href=""><img src="{% static 'img/Chats.png' %}" alt="revie">レビュー閲覧</a></li>
+                        <li><a href="{% url 'account:accountsDetail' pk=user.id %}"><img src="{% static 'img/home.png' %}" alt="home">マイページ</a></li>
+                        <li><a href="{% url 'account:all' %}"><img src="{% static 'img/user.png' %}" alt="user" class="user_img">ユーザーリスト</a></li>
+                        <li><a href="{% url 'review:index' %}"><img src="{% static 'img/Chats.png' %}" alt="revie">レビュー閲覧</a></li>
                     </ul>
                 </section>
             </div>
@@ -172,7 +172,7 @@
                 <p>User List</p>
             </div>
             <div class="adduser_item">
-                <p>All(xx)</p>
+                <p>All[{{ user_count }} account]</p>
                 <input class="adduser_button" type="submit" value="Add User ＋">
             </div>
             <table>

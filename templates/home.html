@@ -9,8 +9,9 @@
     background-color: #f4f4f4;
     padding: 15px;
     border: 1px solid #ddd;
+    height: 100%; /* ← 左サイドバーに合わせる */
+    box-sizing: border-box;
   }
-
   .category-block {
     margin-bottom: 20px;
   }
@@ -118,6 +119,7 @@
   .left-sidebar {
     flex: 0 0 auto;
     margin-top: 50px;
+    min-height: 100vh; /* ← ページの高さに応じて縦に伸ばす */
   }
   
   .right-content {
@@ -139,9 +141,60 @@
     width: 100%;
     height: 481%;
   }
+  .like-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  transition: transform 0.1s ease;
+}
+
+/* ハートアイコンのベース */
+.heart-icon {
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-right: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+/* 空ハート（unicode: 🤍）*/
+.heart-icon::before {
+  content: "\2661";
+  color: #E0245E; /* 薄いグレー */
+}
+
+/* 押された後の「いいね」状態 */
+.like-button.liked {
+  transform: scale(1.2); /* 押した瞬間に少し拡大 */
+}
+
+.like-button.liked .heart-icon {
+  color: #E0245E;      /* Instagram風のピンク系 */
+}
+
+.like-button.liked .heart-icon::before {
+  content: "\2665";    /* 実線のハート */
+}
+
+/* 数字のスタイル */
+.like-count {
+  font-weight: bold;
+  color: #333;
+}
+
+/* scale を元に戻すアニメーション */
+.like-button:active {
+  transform: scale(1.1);
+}
+
 {% endblock %}
 {% block content %}
-
+{% csrf_token %}
+<script src="{% static 'review/detail.js' %}"></script>
 <div class="top">
   <img src="{% static "img/Rectangle 248.png" %}" alt="img">
 </div>
@@ -156,6 +209,7 @@
         <div
           class="category-title"
           onclick="toggleSubcategories('subcat-{{ category.id }}')"
+          style="background-color: F2F7FA;"
         >
           {{ category.category_name }}
         </div>
@@ -211,22 +265,12 @@
         <input type="submit" class="search-button" value="検索">
       </div>
     </form>
-  </div>
-</div>
-
-<script>
-  function toggleSubcategories(id) {
-    const subcatDiv = document.getElementById(id);
-    subcatDiv.style.display =
-      subcatDiv.style.display === "block" ? "none" : "block";
-  }
-</script>
-
- {% if reviews %}
-  <h2>いいねが多いレビュー</h2>
-  {% for review, good_count in reviews|slice:":3" %}
-    <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
-        <strong style=" font-size:25px;">{{ review.class_id }}</strong>
+    {% if reviews %}
+    <div style="max-width: 650px; margin: 0;">
+      <h2 style="margin-left: 0; margin-top: 120px;">いいねが多いレビュー</h2>
+    {% for review, good_count in reviews|slice:":3" %}
+    <div style="margin: 10px 0; padding-left: 0; margin-bottom: 25px;">
+        <strong style=" font-size:15px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="display: flex; align-items: center;">
@@ -262,7 +306,10 @@
               {% endif %}
             {% endfor %}
           </div>
-          <div style="color: black;">{{ review.review_num }}</div>
+
+          <button class="like-button" data-review-id="{{ review.id }}" data-url="{% url 'review:toggle_good' %}">
+            <span class="heart-icon"></span>
+          </button>
         </div>
 
         <!-- レビューコメント -->
@@ -273,11 +320,13 @@
         {% endif %}
       </div>
     {% endfor %}
-  {% endif %}
-  {% if results %}
+  </div>
+{% endif %}
+{% if results %}
+  <div style="max-width: 650px; margin: 0 auto 0 300px;">
     <h2 id="result">検索結果</h2>
     {% for review, good_count in results %}
-      <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+      <div style="margin: 10px 0; border: 1px solid #ccc; padding-bottom: 20px;">
         <strong style=" font-size:25px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -330,7 +379,20 @@
         location.hash = '#result';
       });
     </script>
-  {% endif %}
+  </div>
+{% endif %}
 
+  </div>
+</div>
+
+<script>
+  function toggleSubcategories(id) {
+    const subcatDiv = document.getElementById(id);
+    subcatDiv.style.display =
+      subcatDiv.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+  
   </div>
 {% endblock %}
