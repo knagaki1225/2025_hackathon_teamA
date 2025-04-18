@@ -9,8 +9,9 @@
     background-color: #f4f4f4;
     padding: 15px;
     border: 1px solid #ddd;
+    height: 100%; /* ← 左サイドバーに合わせる */
+    box-sizing: border-box;
   }
-
   .category-block {
     margin-bottom: 20px;
   }
@@ -118,6 +119,7 @@
   .left-sidebar {
     flex: 0 0 auto;
     margin-top: 50px;
+    min-height: 100vh; /* ← ページの高さに応じて縦に伸ばす */
   }
   
   .right-content {
@@ -207,6 +209,7 @@
         <div
           class="category-title"
           onclick="toggleSubcategories('subcat-{{ category.id }}')"
+          style="background-color: F2F7FA;"
         >
           {{ category.category_name }}
         </div>
@@ -262,22 +265,12 @@
         <input type="submit" class="search-button" value="検索">
       </div>
     </form>
-  </div>
-</div>
-
-<script>
-  function toggleSubcategories(id) {
-    const subcatDiv = document.getElementById(id);
-    subcatDiv.style.display =
-      subcatDiv.style.display === "block" ? "none" : "block";
-  }
-</script>
-
- {% if reviews %}
-  <h2>いいねが多いレビュー</h2>
-  {% for review, good_count in reviews|slice:":3" %}
-    <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
-        <strong style=" font-size:25px;">{{ review.class_id }}</strong>
+    {% if reviews %}
+    <div style="max-width: 650px; margin: 0;">
+      <h2 style="margin-left: 0; margin-top: 120px;">いいねが多いレビュー</h2>
+    {% for review, good_count in reviews|slice:":3" %}
+    <div style="margin: 10px 0; padding-left: 0; margin-bottom: 25px;">
+        <strong style=" font-size:15px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div style="display: flex; align-items: center;">
@@ -327,11 +320,13 @@
         {% endif %}
       </div>
     {% endfor %}
-  {% endif %}
-  {% if results %}
+  </div>
+{% endif %}
+{% if results %}
+  <div style="max-width: 650px; margin: 0 auto 0 300px;">
     <h2 id="result">検索結果</h2>
     {% for review, good_count in results %}
-      <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+      <div style="margin: 10px 0; border: 1px solid #ccc; padding-bottom: 20px;">
         <strong style=" font-size:25px;">{{ review.class_id }}</strong>
         <!-- ユーザー情報 -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -384,7 +379,20 @@
         location.hash = '#result';
       });
     </script>
-  {% endif %}
+  </div>
+{% endif %}
 
+  </div>
+</div>
+
+<script>
+  function toggleSubcategories(id) {
+    const subcatDiv = document.getElementById(id);
+    subcatDiv.style.display =
+      subcatDiv.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+  
   </div>
 {% endblock %}

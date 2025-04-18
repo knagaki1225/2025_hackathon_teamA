@@ -7,7 +7,7 @@
 {% csrf_token %}
   <link rel="stylesheet" href="{% static 'review/detail.css' %}">
   <script src="{% static 'review/detail.js' %}"></script>
-  <div style="margin: 40px; font-family: sans-serif;">
+  <div style="margin: 40px; font-family: sans-serif; max-width: 850px; margin-left: 150px;">
 
     <div style="font-size: 28px; font-weight: bold;">
       {{ class_info.class_name }}
@@ -46,7 +46,7 @@
 
   <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; margin-bottom: 20px;">
     <div style="font-size: 28px; font-weight: bold; margin: 40px;">レビュー</div>
-
+  
     {% if request.user.department_id.id != 2 and request.user.department_id.id != 3 %}
       <button onclick="openPopup()" style="background-color: #FFA726; color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 40px;">レビュー投稿</button>
     {% endif %}
@@ -87,7 +87,7 @@
   </div>
 
   {% for review, replies in reviews %}
-    <div style="margin: 20px 40px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+  <div style="max-width: 850px; margin: 20px 40px 20px 140px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
 
       <!-- ユーザー情報 -->
       <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -133,12 +133,13 @@
       </div>
     </div>
     {% for reply in replies %}
-      <div class="coment" style="margin: 20px;">
+      <div class="coment" style="margin: 20px; max-width: 1000px; padding-left: 60px;">
         <div class="icon" style="display: flex; margin: 10px 100px;">
           <img src="{% static 'img/Ellipse 18.png' %}" alt="home" style="width: 24px; height: 24px; border-radius: 50%; margin: 5px">
           {% if not reply.anonymity_flg %}
-            <p style="font-size: 16px; margin: 10px">{{ reply.user_id }}　{{ reply.user_id.grade }}年</p>
-            <p style="font-size: 16px; margin: 10px">{{ reply.user_id.department_id }}</p>
+          <p style="font-size: 16px; margin: 10px; white-space: nowrap;">
+            {{ reply.user_id }}　{{ reply.user_id.grade }}年　{{ reply.user_id.department_id }}
+          </p>
           {% else %}
             <p style="font-size: 16px; margin: 10px">匿名</p>
           {% endif %}
